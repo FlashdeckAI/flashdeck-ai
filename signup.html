@@ -338,7 +338,7 @@
        EXAM LEVEL SELECTOR
     ============================================= */
     .level-selector {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
       margin-top: 2px;
     }
     .level-option {
@@ -618,6 +618,9 @@
                 </div>
                 <div class="level-option" onclick="selectLevel(this, 'alevel')">
                   <span class="level-emoji">🎓</span>A Level
+                </div>
+                <div class="level-option" onclick="selectLevel(this, 'ocr')">
+                  <span class="level-emoji">🏫</span>OCR
                 </div>
               </div>
               <input type="hidden" id="selectedLevel" value="" />
