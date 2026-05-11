@@ -1,0 +1,144 @@
+flowchart TD
+    %% ─────────────────────────────────────────
+    %% ENTRY POINTS
+    %% ─────────────────────────────────────────
+    A([🌐 Student visits flashdeck.ai]) --> B{Has account?}
+
+    B -- No --> C[Sign Up page\nName · Email · Password\nExam board · Level]
+    B -- Yes --> D[Log In page\nEmail / Google OAuth]
+
+    C --> E[Account created\nFree tier: 100 cards/month]
+    D --> F{Auth valid?}
+    F -- No --> D
+    F -- Yes --> G
+
+    E --> G([🏠 Dashboard Home])
+
+    %% ─────────────────────────────────────────
+    %% DASHBOARD HOME
+    %% ─────────────────────────────────────────
+    G --> G1[Welcome banner\n🔥 Streak · 🎯 Daily goal · 📊 Mastery %]
+    G1 --> G2[Recent decks\nContinue studying shortcut]
+    G2 --> G3{What does the student want to do?}
+
+    G3 -- Generate new deck --> H
+    G3 -- Study existing deck --> K
+    G3 -- View all decks --> J
+    G3 -- Check progress --> L
+    G3 -- Account settings --> M
+
+    %% ─────────────────────────────────────────
+    %% GENERATE DECK FLOW
+    %% ─────────────────────────────────────────
+    H([⚡ Generate Page]) --> H1[Select:\nExam board · Subject · Level\nTopic · Question type · Quantity]
+
+    H1 --> H2{Check\nTopic Bank\ncache}
+
+    H2 -- Enough cards exist --> H3[Fetch requested\ncards from bank\nNo API call needed 💚]
+    H2 -- Partial match --> H4[Fetch existing cards\nfrom bank]
+    H2 -- No cards exist --> H5[Call Claude API\nGenerate all requested cards]
+
+    H4 --> H6[Calculate shortfall\ne.g. need 20, have 10\n→ call Claude for 10 more]
+    H6 --> H7[Store new cards\nin Topic Bank]
+    H7 --> H8[Merge: bank cards\n+ new cards]
+    H5 --> H9[Store all cards\nin Topic Bank]
+    H9 --> H8
+    H3 --> H8
+
+    H8 --> H10[Preview deck\nStudent reviews cards\nbefore saving]
+    H10 --> H11{Save deck?}
+    H11 -- Yes --> H12[Save to\nPersonal Deck Library]
+    H11 -- No / Regenerate --> H1
+    H12 --> K
+
+    %% ─────────────────────────────────────────
+    %% MY DECKS
+    %% ─────────────────────────────────────────
+    J([📚 My Decks Page]) --> J1[Grid of saved decks\nSubject · Card count · Mastery %\nLast studied]
+    J1 --> J2{Action?}
+    J2 -- Study --> K
+    J2 -- Edit card --> J3[Edit individual card\nPersonal copy only\nDoes not affect shared bank]
+    J2 -- Add manual card --> J4[Create card manually\nAdded to personal deck only]
+    J2 -- Delete deck --> J5[Confirm → Delete]
+    J2 -- Export PDF --> J6[🔒 Premium feature\nGenerate PDF download]
+    J3 --> J1
+    J4 --> J1
+
+    %% ─────────────────────────────────────────
+    %% STUDY INTERFACE
+    %% ─────────────────────────────────────────
+    K([🧠 Study Interface]) --> K1[Show flashcard\nQuestion side]
+    K1 --> K2[Student taps to flip\nAnswer + SVG diagram shown]
+    K2 --> K3{Rate this card}
+    K3 -- 😓 Hard --> K4[Schedule: review in 1 day\nFlag for priority]
+    K3 -- 🙂 Good --> K5[Schedule: review in 3 days]
+    K3 -- 😄 Easy --> K6[Schedule: review in 7 days]
+
+    K4 --> K7{More cards\nin session?}
+    K5 --> K7
+    K6 --> K7
+
+    K7 -- Yes --> K1
+    K7 -- No --> K8[Session Summary 🎉\nCards reviewed · Hard/Good/Easy split\n🔥 Streak updated · Mastery % updated]
+    K8 --> K9{What next?}
+    K9 -- Study again --> K1
+    K9 -- Back to dashboard --> G
+
+    %% ─────────────────────────────────────────
+    %% SPACED REPETITION ENGINE
+    %% ─────────────────────────────────────────
+    K4 & K5 & K6 --> SR([🔄 Spaced Repetition Engine\nUpdates review schedule\nacross ALL decks])
+
+    %% ─────────────────────────────────────────
+    %% PROGRESS PAGE
+    %% ─────────────────────────────────────────
+    L([📊 Progress Page]) --> L1[Overall mastery % per subject]
+    L1 --> L2[Study streak calendar\nGitHub-style heatmap]
+    L2 --> L3[Cards due for review today\nSpaced repetition queue]
+    L3 --> L4[Weekly study time chart]
+
+    %% ─────────────────────────────────────────
+    %% SETTINGS
+    %% ─────────────────────────────────────────
+    M([⚙️ Settings]) --> M1[Profile: name · email\nexam board · exam date]
+    M1 --> M2[Change password]
+    M2 --> M3[Notification preferences\nEmail study reminders]
+    M3 --> M4{Subscription tier?}
+    M4 -- Free --> M5[Upgrade to Premium $7/mo\nStripe checkout]
+    M4 -- Premium --> M6[Manage subscription\nCancel / Billing history]
+
+    %% ─────────────────────────────────────────
+    %% FREE TIER LIMIT
+    %% ─────────────────────────────────────────
+    H1 --> FL{Monthly card\nlimit reached?\nFree: 100 cards}
+    FL -- No --> H2
+    FL -- Yes --> FL2[🔒 Upgrade prompt\nYou've used 100 free cards\nUpgrade to Premium for unlimited]
+    FL2 --> M5
+
+    %% ─────────────────────────────────────────
+    %% TOPIC BANK (shared infrastructure)
+    %% ─────────────────────────────────────────
+    TB[(🗄️ Topic Bank\nShared · Anonymous\nBoard · Subject · Level\nTopic · Type · Difficulty)]
+
+    H2 -. query .-> TB
+    H7 -. store .-> TB
+    H9 -. store .-> TB
+    H3 -. fetch .-> TB
+
+    %% ─────────────────────────────────────────
+    %% STYLES
+    %% ─────────────────────────────────────────
+    classDef page fill:#1d4ed8,stroke:#1e40af,color:#fff,rx:8
+    classDef decision fill:#f59e0b,stroke:#d97706,color:#1a1a1a
+    classDef action fill:#f0f9ff,stroke:#93c5fd,color:#1e3a5f
+    classDef bank fill:#064e3b,stroke:#065f46,color:#d1fae5
+    classDef premium fill:#7c3aed,stroke:#6d28d9,color:#fff
+    classDef summary fill:#16a34a,stroke:#15803d,color:#fff
+
+    class G,H,J,K,L,M page
+    class B,F,G3,H2,H11,J2,K3,K7,K9,M4,FL decision
+    class C,D,E,G1,G2,H1,H3,H4,H5,H6,H7,H8,H9,H10,H12,J1,J3,J4,J5,K1,K2,K4,K5,K6,L1,L2,L3,L4,M1,M2,M3,M6 action
+    class TB bank
+    class J6,FL2,M5 premium
+    class K8 summary
+    class SR summary
