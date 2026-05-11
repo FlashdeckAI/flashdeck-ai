@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create your free FlashDeck.AI account — AI-powered flashcards for GCSE, IGCSE and A Level. 100 free cards every month, no credit card required." />
+  <title>Sign Up Free — FlashDeck.AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* =============================================
+       DESIGN TOKENS
+    ============================================= */
+    :root {
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-50:  #eff6ff;
+      --green-600: #16a34a;
+      --green-500: #22c55e;
+      --green-50:  #f0fdf4;
+      --red-500: #ef4444;
+      --red-50: #fef2f2;
+      --amber-500: #f59e0b;
+      --text-primary:   #0f172a;
+      --text-secondary: #334155;
+      --text-muted:     #64748b;
+      --surface-1: #ffffff;
+      --border:    rgba(15,23,42,0.08);
+      --border-strong: rgba(15,23,42,0.14);
+      --shadow-sm: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.04);
+      --shadow-lg: 0 12px 40px rgba(15,23,42,0.1), 0 4px 12px rgba(15,23,42,0.06);
+      --shadow-blue: 0 8px 30px rgba(37,99,235,0.25);
+    }
+
+    /* =============================================
+       BACKGROUND
+    ============================================= */
+    .bg-grid {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    .bg-orb {
+      position: fixed; border-radius: 50%; filter: blur(100px);
+      pointer-events: none; z-index: 0; opacity: 0.5;
+    }
+    .bg-orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.08), transparent); top: -200px; right: -100px; }
+    .bg-orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(22,163,74,0.06), transparent); bottom: 5%; left: -150px; }
+
+    /* =============================================
+       NAVBAR (minimal)
+    ============================================= */
+    nav {
+      position: relative; z-index: 10;
+      padding: 20px 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--text-primary);
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #2563eb, #22d3ee);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo span { color: var(--blue-400); }
+    .nav-back {
+      font-size: 0.875rem; color: var(--text-muted); font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--blue-600); }
+
+    /* =============================================
+       TWO-COLUMN LAYOUT
+    ============================================= */
+    .auth-wrapper {
+      flex: 1; display: flex; align-items: stretch;
+      position: relative; z-index: 1;
+    }
+
+    /* Left panel — value proposition */
+    .auth-left {
+      display: none;
+      width: 420px; flex-shrink: 0;
+      background: linear-gradient(145deg, #1d4ed8 0%, #2563eb 50%, #0891b2 100%);
+      padding: 60px 48px;
+      position: relative; overflow: hidden;
+    }
+    @media (min-width: 960px) { .auth-left { display: flex; flex-direction: column; justify-content: center; } }
+    .auth-left::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent);
+      border-radius: 50%;
+    }
+    .auth-left::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(6,182,212,0.15), transparent);
+      border-radius: 50%;
+    }
+    .left-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem; font-weight: 700; color: #ffffff;
+      margin-bottom: 48px; position: relative; z-index: 1;
+    }
+    .left-logo-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .left-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 800; color: #ffffff;
+      line-height: 1.2; margin-bottom: 16px;
+      position: relative; z-index: 1;
+    }
+    .left-subheading {
+      font-size: 0.95rem; color: rgba(255,255,255,0.8);
+      line-height: 1.7; margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .left-perks { list-style: none; position: relative; z-index: 1; }
+    .left-perk {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .perk-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; margin-top: 1px;
+    }
+    .perk-text {
+      font-size: 0.875rem; color: rgba(255,255,255,0.9); line-height: 1.5;
+    }
+    .perk-text strong { color: #ffffff; }
+    .left-free-badge {
+      margin-top: 40px; padding: 16px 20px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px; position: relative; z-index: 1;
+    }
+    .left-free-badge-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; color: #ffffff; margin-bottom: 6px;
+    }
+    .left-free-badge-text {
+      font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.5;
+    }
+
+    /* Right panel — form */
+    .auth-right {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 48px 24px;
+    }
+    .auth-container { width: 100%; max-width: 460px; }
+
+    /* =============================================
+       CARD
+    ============================================= */
+    .auth-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      padding: 40px;
+      position: relative; overflow: hidden;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #2563eb, #06b6d4, #16a34a);
+    }
+
+    /* =============================================
+       HEADER
+    ============================================= */
+    .auth-header { text-align: center; margin-bottom: 28px; }
+    .auth-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 1px solid rgba(37,99,235,0.15);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin: 0 auto 16px;
+    }
+    .auth-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 8px;
+    }
+    .auth-subtitle {
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;
+    }
+    .free-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-50); border: 1px solid rgba(22,163,74,0.2);
+      color: var(--green-600); font-size: 0.75rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 100px; margin-top: 10px;
+    }
+
+    /* =============================================
+       GOOGLE BUTTON
+    ============================================= */
+    .btn-google {
+      width: 100%; display: flex; align-items: center; justify-content: center;
+      gap: 12px; padding: 13px 20px;
+      background: #ffffff; border: 1.5px solid var(--border-strong);
+      border-radius: 10px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
+      color: var(--text-primary); transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-google:hover {
+      border-color: var(--blue-500); background: var(--blue-50);
+      box-shadow: var(--shadow-md); transform: translateY(-1px);
+    }
+    .google-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* =============================================
+       DIVIDER
+    ============================================= */
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 22px 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-text {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* =============================================
+       FORM
+    ============================================= */
+    .form-row-2 {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-size: 0.875rem; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: 8px;
+    }
+    .form-input-wrap { position: relative; }
+    .form-input-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 16px; pointer-events: none;
+    }
+    .form-input {
+      width: 100%; padding: 13px 14px 13px 42px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 10px; font-family: 'Inter', sans-serif;
+      font-size: 0.9rem; color: var(--text-primary);
+      background: #ffffff; transition: all 0.2s ease;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .form-input::placeholder { color: var(--text-muted); }
+    .form-input.error {
+      border-color: var(--red-500);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+    }
+    .form-input.valid {
+      border-color: var(--green-500);
+    }
+    .form-hint {
+      font-size: 0.75rem; color: var(--text-muted);
+      margin-top: 5px; display: block;
+    }
+    .form-hint.error-hint { color: var(--red-500); }
+
+    /* Password toggle */
+    .password-toggle {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 16px; padding: 4px;
+      transition: color 0.2s;
+    }
+    .password-toggle:hover { color: var(--blue-600); }
+
+    /* Password strength meter */
+    .strength-meter {
+      margin-top: 8px; display: none;
+    }
+    .strength-meter.show { display: block; }
+    .strength-bar-track {
+      height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden;
+    }
+    .strength-bar-fill {
+      height: 100%; border-radius: 2px; transition: width 0.3s ease, background 0.3s ease;
+      width: 0%;
+    }
+    .strength-label {
+      font-size: 0.72rem; margin-top: 4px; font-weight: 600;
+    }
+
+    /* =============================================
+       EXAM LEVEL SELECTOR
+    ============================================= */
+    .level-selector {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      margin-top: 2px;
+    }
+    .level-option {
+      padding: 10px 8px; border-radius: 8px; text-align: center;
+      border: 1.5px solid var(--border-strong); cursor: pointer;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);
+      transition: all 0.2s; background: #fff;
+    }
+    .level-option:hover { border-color: var(--blue-500); color: var(--blue-600); background: var(--blue-50); }
+    .level-option.selected {
+      border-color: var(--blue-600); background: var(--blue-50); color: var(--blue-700);
+    }
+    .level-option .level-emoji { display: block; font-size: 1.1rem; margin-bottom: 3px; }
+
+    /* =============================================
+       TERMS CHECKBOX
+    ============================================= */
+    .terms-row {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 22px;
+    }
+    .custom-checkbox {
+      width: 18px; height: 18px; border: 1.5px solid var(--border-strong);
+      border-radius: 5px; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; background: #fff; margin-top: 1px;
+    }
+    .custom-checkbox.checked {
+      background: var(--blue-600); border-color: var(--blue-600);
+    }
+    .custom-checkbox.checked::after {
+      content: '✓'; color: #fff; font-size: 11px; font-weight: 700;
+    }
+    .terms-text {
+      font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;
+    }
+    .terms-text a { color: var(--blue-600); font-weight: 500; }
+    .terms-text a:hover { text-decoration: underline; }
+
+    /* =============================================
+       SUBMIT BUTTON
+    ============================================= */
+    .btn-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff; font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: all 0.2s ease; box-shadow: var(--shadow-blue);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(37,99,235,0.35);
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit.loading { opacity: 0.8; pointer-events: none; }
+
+    /* =============================================
+       ALERT
+    ============================================= */
+    .alert {
+      padding: 12px 16px; border-radius: 10px;
+      font-size: 0.875rem; font-weight: 500;
+      display: none; margin-bottom: 20px;
+      align-items: center; gap: 10px;
+    }
+    .alert.show { display: flex; }
+    .alert-error {
+      background: var(--red-50); border: 1px solid rgba(239,68,68,0.2);
+      color: #b91c1c;
+    }
+    .alert-success {
+      background: var(--green-50); border: 1px solid rgba(22,163,74,0.2);
+      color: var(--green-600);
+    }
+
+    /* =============================================
+       FOOTER LINK
+    ============================================= */
+    .auth-footer {
+      text-align: center; margin-top: 24px;
+      font-size: 0.875rem; color: var(--text-muted);
+    }
+    .auth-footer a {
+      color: var(--blue-600); font-weight: 600;
+      transition: color 0.2s;
+    }
+    .auth-footer a:hover { color: var(--blue-700); text-decoration: underline; }
+
+    /* =============================================
+       TRUST BADGES
+    ============================================= */
+    .trust-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 20px; margin-top: 24px; flex-wrap: wrap;
+    }
+    .trust-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; color: var(--text-muted); font-weight: 500;
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 560px) {
+      .auth-card { padding: 28px 20px; }
+      .auth-title { font-size: 1.5rem; }
+      .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background decorations -->
+  <div class="bg-grid"></div>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- Minimal navbar -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">⚡</div>
+        FlashDeck<span>.ai</span>
+      </a>
+      <a href="index.html" class="nav-back">
+        ← Back to home
+      </a>
+    </div>
+  </nav>
+
+  <!-- Auth wrapper -->
+  <div class="auth-wrapper">
+
+    <!-- Left value panel (desktop only) -->
+    <div class="auth-left">
+      <div class="left-logo">
+        <div class="left-logo-icon">⚡</div>
+        FlashDeck.ai
+      </div>
+      <h2 class="left-heading">Study smarter.<br />Ace your exams.</h2>
+      <p class="left-subheading">Join students in 140+ countries using AI-powered flashcards built specifically for GCSE, IGCSE and A Level.</p>
+      <ul class="left-perks">
+        <li class="left-perk">
+          <div class="perk-icon">⚡</div>
+          <div class="perk-text"><strong>100 free AI cards every month</strong> — no credit card required</div>
+        </li>
+        <li class="left-perk">
+          <div class="perk-icon">🎯</div>
+          <div class="perk-text"><strong>Exam-board aligned</strong> — AQA, Edexcel, Cambridge IGCSE, OCR</div>
+        </li>
+        <li class="left-perk">
+          <div class="perk-icon">📐</div>
+          <div class="perk-text"><strong>SVG diagrams included</strong> — cells, circuits, force diagrams and more</div>
+        </li>
+        <li class="left-perk">
+          <div class="perk-icon">🧠</div>
+          <div class="perk-text"><strong>Spaced repetition engine</strong> — study less, remember more</div>
+        </li>
+        <li class="left-perk">
+          <div class="perk-icon">🌍</div>
+          <div class="perk-text"><strong>Available in 140+ countries</strong> — works on any device</div>
+        </li>
+      </ul>
+      <div class="left-free-badge">
+        <div class="left-free-badge-title">🎁 Free forever tier</div>
+        <div class="left-free-badge-text">100 AI-generated cards per month, all 4 exam boards, SVG diagrams included. Upgrade to Premium at $7/month for unlimited cards.</div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-right">
+      <div class="auth-container">
+
+        <!-- Card -->
+        <div class="auth-card">
+
+          <!-- Header -->
+          <div class="auth-header">
+            <div class="auth-icon">⚡</div>
+            <h1 class="auth-title">Create your account</h1>
+            <p class="auth-subtitle">Start revising smarter in under 60 seconds</p>
+            <div class="free-pill">✓ Free — 100 cards/month, no card needed</div>
+          </div>
+
+          <!-- Error / success alert -->
+          <div class="alert alert-error" id="errorAlert">
+            <span>⚠</span>
+            <span id="errorMsg">Something went wrong. Please try again.</span>
+          </div>
+          <div class="alert alert-success" id="successAlert">
+            <span>✓</span>
+            <span id="successMsg">Account created! Check your email to verify your address.</span>
+          </div>
+
+          <!-- Google OAuth -->
+          <button class="btn-google" onclick="handleGoogleSignup()">
+            <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Sign up with Google
+          </button>
+
+          <!-- Divider -->
+          <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">or sign up with email</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <!-- Sign up form -->
+          <form id="signupForm" onsubmit="handleSignup(event)" novalidate>
+
+            <!-- Name row -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="firstName">First name</label>
+                <div class="form-input-wrap">
+                  <span class="form-input-icon">👤</span>
+                  <input type="text" id="firstName" class="form-input" placeholder="Priya" autocomplete="given-name" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastName">Last name</label>
+                <div class="form-input-wrap">
+                  <span class="form-input-icon">👤</span>
+                  <input type="text" id="lastName" class="form-input" placeholder="Sharma" autocomplete="family-name" required />
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label" for="email">Email address</label>
+              <div class="form-input-wrap">
+                <span class="form-input-icon">✉</span>
+                <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <div class="form-input-wrap">
+                <span class="form-input-icon">🔒</span>
+                <input
+                  type="password" id="password" class="form-input"
+                  placeholder="At least 8 characters"
+                  autocomplete="new-password"
+                  oninput="checkPasswordStrength(this.value)"
+                  required
+                />
+                <button type="button" class="password-toggle" onclick="togglePassword('password', this)" aria-label="Toggle password visibility">👁</button>
+              </div>
+              <!-- Strength meter -->
+              <div class="strength-meter" id="strengthMeter">
+                <div class="strength-bar-track">
+                  <div class="strength-bar-fill" id="strengthBar"></div>
+                </div>
+                <div class="strength-label" id="strengthLabel"></div>
+              </div>
+            </div>
+
+            <!-- Exam level -->
+            <div class="form-group">
+              <label class="form-label">I am studying for</label>
+              <div class="level-selector" id="levelSelector">
+                <div class="level-option" onclick="selectLevel(this, 'gcse')">
+                  <span class="level-emoji">📚</span>GCSE
+                </div>
+                <div class="level-option" onclick="selectLevel(this, 'igcse')">
+                  <span class="level-emoji">🌍</span>IGCSE
+                </div>
+                <div class="level-option" onclick="selectLevel(this, 'alevel')">
+                  <span class="level-emoji">🎓</span>A Level
+                </div>
+              </div>
+              <input type="hidden" id="selectedLevel" value="" />
+            </div>
+
+            <!-- Terms -->
+            <div class="terms-row">
+              <div class="custom-checkbox" id="termsCheckbox" onclick="toggleCheckbox(this)" role="checkbox" aria-checked="false" tabindex="0"></div>
+              <div class="terms-text">
+                I agree to FlashDeck's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I confirm I am 13 years of age or older.
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span id="submitText">Create Free Account →</span>
+            </button>
+
+          </form>
+
+          <!-- Footer link -->
+          <div class="auth-footer">
+            Already have an account? <a href="login.html">Log in</a>
+          </div>
+
+        </div>
+
+        <!-- Trust badges -->
+        <div class="trust-row">
+          <div class="trust-badge">
+            <span>🔒</span>
+            <span>256-bit SSL encryption</span>
+          </div>
+          <div class="trust-badge">
+            <span>🇬🇧</span>
+            <span>UK GDPR compliant</span>
+          </div>
+          <div class="trust-badge">
+            <span>🛡</span>
+            <span>No credit card required</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedLevel = '';
+
+    // ---- Google Sign-up (placeholder) ----
+    function handleGoogleSignup() {
+      const btn = document.querySelector('.btn-google');
+      btn.textContent = 'Redirecting to Google…';
+      btn.disabled = true;
+      // TODO: supabase.auth.signInWithOAuth({ provider: 'google' })
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Sign up with Google`;
+        showError('Google sign-up will be available once Supabase is connected.');
+      }, 1500);
+    }
+
+    // ---- Email Sign-up (placeholder) ----
+    function handleSignup(e) {
+      e.preventDefault();
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const password  = document.getElementById('password').value;
+      const terms     = document.getElementById('termsCheckbox').classList.contains('checked');
+
+      hideError(); hideSuccess();
+
+      // Validation
+      if (!firstName || !lastName) { showError('Please enter your first and last name.'); return; }
+      if (!email || !email.includes('@')) {
+        showError('Please enter a valid email address.');
+        document.getElementById('email').classList.add('error'); return;
+      }
+      if (password.length < 8) {
+        showError('Your password must be at least 8 characters long.');
+        document.getElementById('password').classList.add('error'); return;
+      }
+      if (!terms) {
+        showError('Please accept the Terms of Service and Privacy Policy to continue.'); return;
+      }
+
+      // Loading state
+      const btn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+      btn.classList.add('loading');
+      submitText.textContent = 'Creating your account…';
+
+      // TODO: Replace with Supabase auth call:
+      // const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { first_name: firstName, last_name: lastName, level: selectedLevel } } });
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        submitText.textContent = 'Create Free Account →';
+        showError('Authentication backend not yet connected. Supabase integration coming in the next sprint.');
+      }, 1500);
+    }
+
+    // ---- Level selector ----
+    function selectLevel(el, level) {
+      document.querySelectorAll('.level-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedLevel = level;
+      document.getElementById('selectedLevel').value = level;
+    }
+
+    // ---- Password strength ----
+    function checkPasswordStrength(val) {
+      const meter = document.getElementById('strengthMeter');
+      const bar   = document.getElementById('strengthBar');
+      const label = document.getElementById('strengthLabel');
+
+      if (!val) { meter.classList.remove('show'); return; }
+      meter.classList.add('show');
+
+      let score = 0;
+      if (val.length >= 8)  score++;
+      if (val.length >= 12) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = [
+        { pct: '20%', color: '#ef4444', text: 'Very weak',  textColor: '#ef4444' },
+        { pct: '40%', color: '#f97316', text: 'Weak',       textColor: '#f97316' },
+        { pct: '60%', color: '#f59e0b', text: 'Fair',       textColor: '#d97706' },
+        { pct: '80%', color: '#22c55e', text: 'Strong',     textColor: '#16a34a' },
+        { pct: '100%',color: '#16a34a', text: 'Very strong',textColor: '#15803d' },
+      ];
+      const l = levels[Math.min(score, 4)];
+      bar.style.width = l.pct;
+      bar.style.background = l.color;
+      label.textContent = l.text;
+      label.style.color = l.textColor;
+    }
+
+    // ---- Password visibility toggle ----
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text'; btn.textContent = '🙈';
+      } else {
+        input.type = 'password'; btn.textContent = '👁';
+      }
+    }
+
+    // ---- Checkbox toggle ----
+    function toggleCheckbox(el) {
+      el.classList.toggle('checked');
+      el.setAttribute('aria-checked', el.classList.contains('checked'));
+    }
+
+    // ---- Alert helpers ----
+    function showError(msg) {
+      document.getElementById('errorMsg').textContent = msg;
+      document.getElementById('errorAlert').classList.add('show');
+    }
+    function showSuccess(msg) {
+      document.getElementById('successMsg').textContent = msg;
+      document.getElementById('successAlert').classList.add('show');
+    }
+    function hideError()   { document.getElementById('errorAlert').classList.remove('show'); }
+    function hideSuccess() { document.getElementById('successAlert').classList.remove('show'); }
+
+    // ---- Clear errors on input ----
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        hideError();
+      });
+    });
+  </script>
+</body>
+</html>
