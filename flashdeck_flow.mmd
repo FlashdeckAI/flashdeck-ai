@@ -15,6 +15,38 @@ flowchart TD
     E --> G([🏠 Dashboard Home])
 
     %% ─────────────────────────────────────────
+    %% SCHOOL PILOT ENTRY
+    %% ─────────────────────────────────────────
+    A --> SP1([🏫 Schools page\nflashdeck.ai/schools])
+    SP1 --> SP2[School submits interest form\nName · Role · School · No. of students]
+    SP2 --> SP3{FlashDeck admin\nreviews request}
+    SP3 -- Approved --> SP4[Admin creates School Account\nPilot flag + 6-week expiry date]
+    SP3 -- Rejected --> SP7[Polite decline email\nWaitlist option offered]
+    SP4 --> SP5[Setup email sent to school admin\nClass codes + onboarding guide]
+    SP5 --> SP6[Teachers & students register\nusing class code]
+    SP6 --> G
+
+    %% ─────────────────────────────────────────
+    %% PILOT ACCOUNT LIFECYCLE
+    %% ─────────────────────────────────────────
+    SP4 --> PA1{Pilot period\nstill active?}
+    PA1 -- Yes → within 6 weeks --> PA2[Full platform access\nNo payment required\nTeacher dashboard enabled]
+    PA1 -- Expired --> PA3[Pilot Expired Banner shown\nUpgrade to School Partnership]
+    PA3 --> PA4{School decides\nto upgrade?}
+    PA4 -- Yes --> PA5[Invoice issued\nSchool Partnership activated\nPilot flag removed]
+    PA4 -- No --> PA6[Account locked\nStudent data retained 30 days\nthen deleted]
+
+    %% ─────────────────────────────────────────
+    %% TEACHER DASHBOARD (School accounts only)
+    %% ─────────────────────────────────────────
+    G --> TD0{School\naccount?}
+    TD0 -- Yes --> TD1([👩‍🏫 Teacher Dashboard])
+    TD1 --> TD2[Class progress overview\nMastery rates per topic]
+    TD1 --> TD3[Shared Deck Library\nCreate & assign decks to classes]
+    TD1 --> TD4[Student Reports\nIndividual mastery & engagement]
+    TD1 --> TD5[Class Codes\nInvite new students]
+
+    %% ─────────────────────────────────────────
     %% DASHBOARD HOME
     %% ─────────────────────────────────────────
     G --> G1[Welcome banner\n🔥 Streak · 🎯 Daily goal · 📊 Mastery %]
@@ -32,7 +64,12 @@ flowchart TD
     %% ─────────────────────────────────────────
     H([⚡ Generate Page]) --> H1[Select:\nExam board · Subject · Level\nTopic · Question type · Quantity]
 
-    H1 --> H2{Check\nTopic Bank\ncache}
+    H1 --> FL{Monthly card\nlimit reached?\nFree: 100 cards}
+    FL -- No --> H2
+    FL -- Yes --> FL2[🔒 Upgrade prompt\nYou've used 100 free cards\nUpgrade to Premium for unlimited]
+    FL2 --> M5
+
+    H2{Check\nTopic Bank\ncache}
 
     H2 -- Enough cards exist --> H3[Fetch requested\ncards from bank\nNo API call needed 💚]
     H2 -- Partial match --> H4[Fetch existing cards\nfrom bank]
@@ -108,14 +145,6 @@ flowchart TD
     M4 -- Premium --> M6[Manage subscription\nCancel / Billing history]
 
     %% ─────────────────────────────────────────
-    %% FREE TIER LIMIT
-    %% ─────────────────────────────────────────
-    H1 --> FL{Monthly card\nlimit reached?\nFree: 100 cards}
-    FL -- No --> H2
-    FL -- Yes --> FL2[🔒 Upgrade prompt\nYou've used 100 free cards\nUpgrade to Premium for unlimited]
-    FL2 --> M5
-
-    %% ─────────────────────────────────────────
     %% TOPIC BANK (shared infrastructure)
     %% ─────────────────────────────────────────
     TB[(🗄️ Topic Bank\nShared · Anonymous\nBoard · Subject · Level\nTopic · Type · Difficulty)]
@@ -128,17 +157,21 @@ flowchart TD
     %% ─────────────────────────────────────────
     %% STYLES
     %% ─────────────────────────────────────────
-    classDef page fill:#1d4ed8,stroke:#1e40af,color:#fff,rx:8
+    classDef page fill:#1d4ed8,stroke:#1e40af,color:#fff
     classDef decision fill:#f59e0b,stroke:#d97706,color:#1a1a1a
     classDef action fill:#f0f9ff,stroke:#93c5fd,color:#1e3a5f
     classDef bank fill:#064e3b,stroke:#065f46,color:#d1fae5
     classDef premium fill:#7c3aed,stroke:#6d28d9,color:#fff
     classDef summary fill:#16a34a,stroke:#15803d,color:#fff
+    classDef pilot fill:#fce7f3,stroke:#db2777,color:#831843
+    classDef teacher fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
 
     class G,H,J,K,L,M page
-    class B,F,G3,H2,H11,J2,K3,K7,K9,M4,FL decision
-    class C,D,E,G1,G2,H1,H3,H4,H5,H6,H7,H8,H9,H10,H12,J1,J3,J4,J5,K1,K2,K4,K5,K6,L1,L2,L3,L4,M1,M2,M3,M6 action
+    class B,F,G3,H2,H11,J2,K3,K7,K9,M4,FL,SP3,PA1,PA4,TD0 decision
+    class C,D,E,G1,G2,H1,H3,H4,H5,H6,H7,H8,H9,H10,H12,J1,J3,J4,J5,K1,K2,K4,K5,K6,L1,L2,L3,L4,M1,M2,M3,M6,PA2 action
     class TB bank
     class J6,FL2,M5 premium
     class K8 summary
     class SR summary
+    class SP1,SP2,SP4,SP5,SP6,SP7,PA3,PA5,PA6 pilot
+    class TD1,TD2,TD3,TD4,TD5 teacher
