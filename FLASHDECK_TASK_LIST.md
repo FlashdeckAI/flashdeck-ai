@@ -1,6 +1,6 @@
 # FlashDeck.AI — Master Task List
 
-> Last updated: May 2026  
+> Last updated: 13 May 2026  
 > Legend: ✅ Done · 🔄 In Progress · ⬜ To Do · 🔒 Blocked (dependency)
 
 ---
@@ -14,7 +14,7 @@
 | 1.3 | Business plan V3 | ✅ Done | Earlier version; superseded by business case |
 | 1.4 | Claude API cost research | ✅ Done | Haiku confirmed as best cost/quality model |
 | 1.5 | School pricing research | ✅ Done | Benchmarked vs Quizlet, Seneca, Tassomai |
-| 1.6 | School pitch deck | ✅ Done | 10-slide deck, dual £/$ pricing, pilot offer |
+| 1.6 | School pitch deck | ✅ Done | 11-slide deck, dual £/$ pricing, pilot offer, Data & Privacy slide added |
 | 1.7 | Define school pilot programme terms | ⬜ To Do | Duration, eligibility, what counts as success |
 | 1.8 | Define school partnership contract | ⬜ To Do | Legal agreement for paid school licences |
 | 1.9 | Identify first 10 target schools | ⬜ To Do | UK, Pakistan, Nigeria, Middle East |
@@ -36,7 +36,7 @@
 | 2.8 | SSL certificate | ✅ Done | Auto-provisioned by Vercel |
 | 2.9 | Supabase project setup | ⬜ To Do | Create project, get API keys |
 | 2.10 | Supabase database schema | ⬜ To Do | Users, decks, cards, topic bank, schools tables |
-| 2.11 | Anthropic (Claude) API account | 🔄 In Progress | Subscription pending — due tomorrow |
+| 2.11 | Anthropic (Claude) API account | 🔄 In Progress | Subscription pending |
 | 2.12 | Stripe account setup | ⬜ To Do | For $7/month individual + school licences |
 | 2.13 | Environment variables in Vercel | 🔒 Blocked | Needs Supabase + Stripe + Claude keys first |
 | 2.14 | Email provider setup (transactional) | ⬜ To Do | For verification, reminders, pilot invites (Resend or SendGrid) |
@@ -57,18 +57,17 @@
 | 3.8 | Sustainability section | ✅ Done | Eco stats and pledge |
 | 3.9 | Log In page | ✅ Done | Email + Google OAuth UI, validation |
 | 3.10 | Sign Up page | ✅ Done | 4 exam boards, password strength meter |
-| 3.11 | Schools landing page (/schools) | 🔄 In Progress | Pilot interest form, school-specific pitch — added to dev backlog |
-| 3.11a | Schools page — hero section | ⬜ To Do | Headline, value prop for head teachers |
-| 3.11b | Schools page — how it works for schools | ⬜ To Do | 3-step: request pilot → onboard → track progress |
-| 3.11c | Schools page — pricing tiers | ⬜ To Do | Starter / Growth / Whole School (matches pitch deck) |
-| 3.11d | Schools page — pilot interest form | ⬜ To Do | Name, role, school name, number of students, email |
-| 3.11e | Schools page — testimonials / social proof | ⬜ To Do | Placeholder until real school pilots complete |
-| 3.11f | Schools page — nav link from main site | ⬜ To Do | Add "For Schools" link to main navigation |
-| 3.12 | Blog / SEO content | ⬜ To Do | Post-MVP — drives organic student traffic |
-| 3.13a | Admin notification on pilot form submission | ⬜ To Do | Email alert to Zulfi when a school submits interest |
-| 3.13 | Cookie consent banner | ⬜ To Do | Required for GDPR compliance |
-| 3.14 | Privacy Policy page | ⬜ To Do | Required before public launch |
-| 3.15 | Terms of Service page | ⬜ To Do | Required before public launch |
+| 3.11 | Schools landing page (/schools.html) | ✅ Done | Hero, how it works, 3 pricing tiers, pilot form, FAQ — wired to Formspree |
+| 3.12 | Contact page (/contact.html) | ✅ Done | General enquiry form wired to Formspree |
+| 3.13 | Privacy Policy page (/privacy.html) | ✅ Done | UK GDPR compliant, student data, data subject rights |
+| 3.14 | Terms of Service page (/terms.html) | ✅ Done | Subscriptions, refund policy, AI disclaimer, DPA requirement |
+| 3.15 | Sustainability Policy page (/sustainability.html) | ✅ Done | Paper-free stats, comparison table, six commitment cards |
+| 3.16 | For Schools + Contact links in main navigation | ✅ Done | Added to desktop and mobile nav in index.html |
+| 3.17 | Formspree endpoints wired | ✅ Done | School enquiry: xbdwbqbq · General contact: xeendvwe |
+| 3.18 | Factual accuracy audit (exam boards, countries) | ✅ Done | Fixed 10+ exam boards → 4, removed WJEC, fixed countries label, removed Matric |
+| 3.19 | Cookie consent banner | ⬜ To Do | Required for GDPR compliance |
+| 3.20 | Blog / SEO content | ⬜ To Do | Post-MVP — drives organic student traffic |
+| 3.21 | Admin notification on pilot form submission | ⬜ To Do | Email alert when a school submits interest |
 
 ---
 
@@ -77,11 +76,13 @@
 | # | Task | Status | Notes |
 |---|---|---|-|
 | P.1 | Presentations folder on GitHub | ✅ Done | `/presentations/` folder created in repo |
-| P.2 | Schools pitch deck v1 stored on GitHub | ✅ Done | All 10 slides in `/presentations/schools-pitch-v1/` |
+| P.2 | Schools pitch deck v1 stored on GitHub | ✅ Done | All slides in `/presentations/schools-pitch-v1/` |
 | P.3 | Presentations README with versioning guide | ✅ Done | Documents how to add new versions |
-| P.4 | Schools pitch deck v2 (post-feedback) | ⬜ To Do | Update after first round of school pitches |
-| P.5 | Investor / Cutlass Group update deck | ⬜ To Do | Progress update once MVP is live |
-| P.6 | Student-facing demo deck | ⬜ To Do | Short deck for student recruitment / social media |
+| P.4 | Pitch deck — Data & Privacy slide added | ✅ Done | Slide 7: UK GDPR, DPA, no data selling, UK/EEA storage, under-13 protections |
+| P.5 | Pitch deck — accuracy corrections | ✅ Done | WJEC removed, Matric removed, year updated to 2026, countries label corrected |
+| P.6 | Schools pitch deck v2 (post-feedback) | ⬜ To Do | Update after first round of school pitches |
+| P.7 | Investor / Cutlass Group update deck | ⬜ To Do | Progress update once MVP is live |
+| P.8 | Student-facing demo deck | ⬜ To Do | Short deck for student recruitment / social media |
 
 ---
 
@@ -102,6 +103,8 @@
 
 ## 5. Application — Dashboard & Core UI
 
+**⬜ NEXT SPRINT — Starting tomorrow**
+
 | # | Task | Status | Notes |
 |---|---|---|---|
 | 5.1 | Navigation shell (sidebar + top bar) | ⬜ To Do | Persistent across all logged-in pages |
@@ -121,7 +124,7 @@
 
 | # | Task | Status | Notes |
 |---|---|---|---|
-| 6.1 | Claude API integration | 🔒 Blocked | Needs API key (due tomorrow) |
+| 6.1 | Claude API integration | 🔒 Blocked | Needs API key |
 | 6.2 | Prompt engineering for flashcard generation | ⬜ To Do | Per question type: definition, T/F, short answer, diagram, MCQ, calculation |
 | 6.3 | Topic Bank database table | ⬜ To Do | Board · Subject · Level · Topic · Type · Cards |
 | 6.4 | Cache-check logic (query Topic Bank first) | ⬜ To Do | Return existing cards if enough exist |
@@ -153,11 +156,11 @@
 | 8.3 | Premium feature gates (PDF export, unlimited) | ⬜ To Do | Check subscription status before allowing |
 | 8.4 | Annual discount (e.g. 2 months free) | ⬜ To Do | Toggle on pricing page already built |
 | 8.5 | School pilot account type | ⬜ To Do | Pilot flag + expiry date in Supabase |
-| 8.6 | School pilot interest form (/schools) | ⬜ To Do | Collects school details, triggers admin email |
+| 8.6 | School pilot interest form (/schools) | ✅ Done | Live at /schools.html, wired to Formspree |
 | 8.7 | Admin panel — approve/reject pilot requests | ⬜ To Do | Simple admin UI for Zulfi to manage pilots |
 | 8.8 | Pilot expiry flow | ⬜ To Do | Banner shown, account locked after grace period |
 | 8.9 | School partnership upgrade flow | ⬜ To Do | Invoice generation or Stripe school licence |
-| 8.10 | School licence tiers (Starter/Growth/Whole School) | ⬜ To Do | As per pitch deck pricing |
+| 8.10 | School licence tiers (Starter/Growth/Whole School) | ✅ Done | Defined on /schools.html — Starter £499 / Growth £999 / Whole School £1,999 |
 
 ---
 
@@ -177,12 +180,12 @@
 
 | # | Task | Status | Notes |
 |---|---|---|---|
-| 10.1 | Privacy Policy | ⬜ To Do | UK GDPR compliant, covers student data |
-| 10.2 | Terms of Service | ⬜ To Do | User agreement, acceptable use |
+| 10.1 | Privacy Policy | ✅ Done | Live at /privacy.html — UK GDPR, student data, data subject rights |
+| 10.2 | Terms of Service | ✅ Done | Live at /terms.html — subscriptions, refund, AI disclaimer, DPA requirement |
 | 10.3 | Cookie Policy + consent banner | ⬜ To Do | Required for EU/UK visitors |
 | 10.4 | COPPA / GDPR-K compliance (under-13s) | ⬜ To Do | Age gate or parental consent for younger students |
 | 10.5 | Data retention policy | ⬜ To Do | How long student data is kept |
-| 10.6 | School data processing agreement (DPA) | ⬜ To Do | Required by UK schools before signing |
+| 10.6 | School data processing agreement (DPA) | ⬜ To Do | Required by UK schools before signing — template needed |
 
 ---
 
@@ -205,14 +208,14 @@
 |---|---|---|---|---|
 | Business & Strategy | 6 | 0 | 4 | 10 |
 | Infrastructure & DevOps | 8 | 1 | 5 | 14 |
-| Marketing Website | 11 | 1 | 10 | 22 |
-| Presentations & Version Control | 3 | 0 | 3 | 6 |
+| Marketing Website | 18 | 0 | 3 | 21 |
+| Presentations & Version Control | 5 | 0 | 3 | 8 |
 | Authentication | 0 | 0 | 8 | 8 |
 | Dashboard & Core UI | 0 | 0 | 10 | 10 |
-| AI & Topic Bank | 0 | 0 | 8 | 8 |
+| AI & Topic Bank | 0 | 1 | 7 | 8 |
 | Spaced Repetition | 0 | 0 | 5 | 5 |
-| Monetisation | 0 | 0 | 10 | 10 |
+| Monetisation | 2 | 0 | 8 | 10 |
 | Teacher & School Features | 0 | 0 | 5 | 5 |
-| Compliance & Legal | 0 | 0 | 6 | 6 |
+| Compliance & Legal | 2 | 0 | 4 | 6 |
 | Testing & Launch | 0 | 0 | 6 | 6 |
-| **Total** | **28** | **2** | **80** | **110** |
+| **Total** | **41** | **2** | **68** | **111** |
