@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .left-panel {
+      width: 58%;
+      min-height: 720px;
+      background: #1e3a5f;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 72px;
+      padding-right: 60px;
+      padding-top: 60px;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+      z-index: 2;
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .logo-bolt {
+      width: 44px;
+      height: 44px;
+      background: #2563eb;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #ffffff;
+      font-weight: 800;
+    }
+    .logo-text {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .logo-text span {
+      color: #60a5fa;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(37,99,235,0.25);
+      border: 1px solid rgba(96,165,250,0.4);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #93c5fd;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .main-title {
+      font-size: 52px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .main-title span {
+      color: #60a5fa;
+    }
+    .subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 48px;
+      max-width: 420px;
+      font-family: 'Inter', sans-serif;
+    }
+    .accent-bar {
+      width: 56px;
+      height: 4px;
+      background: #2563eb;
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+    .stat-row {
+      display: flex;
+      gap: 32px;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .right-panel {
+      width: 42%;
+      min-height: 720px;
+      position: relative;
+      overflow: hidden;
+    }
+    .right-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .right-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, rgba(30,58,95,0.6) 0%, transparent 100%);
+    }
+    .proposal-tag {
+      position: absolute;
+      bottom: 28px;
+      left: 24px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 10px 18px;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="left-panel">
+      <div class="logo-row">
+        <div class="logo-bolt">⚡</div>
+        <div class="logo-text">FlashDeck<span>.AI</span></div>
+      </div>
+      <div class="badge">Schools Partnership Proposal</div>
+      <div class="main-title">Smarter Revision.<br><span>Better Results.</span><br>For Every Student.</div>
+      <div class="accent-bar"></div>
+      <div class="subtitle">AI-powered flashcard learning aligned to GCSE, IGCSE and A Level — built for schools that want measurable outcomes.</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">5.75M+</div>
+          <div class="stat-label">Target Students</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">140+</div>
+          <div class="stat-label">Countries</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Exam Boards</div>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <img src="/home/ubuntu/flashdeck-diagrams/pitch_students_diverse.png" alt="Diverse students studying" />
+      <div class="right-overlay"></div>
+      <div class="proposal-tag">📋 Partnership Proposal · 2025</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -57,11 +57,31 @@
 | 3.8 | Sustainability section | ✅ Done | Eco stats and pledge |
 | 3.9 | Log In page | ✅ Done | Email + Google OAuth UI, validation |
 | 3.10 | Sign Up page | ✅ Done | 4 exam boards, password strength meter |
-| 3.11 | Schools landing page (/schools) | ⬜ To Do | Pilot interest form, school-specific pitch |
+| 3.11 | Schools landing page (/schools) | 🔄 In Progress | Pilot interest form, school-specific pitch — added to dev backlog |
+| 3.11a | Schools page — hero section | ⬜ To Do | Headline, value prop for head teachers |
+| 3.11b | Schools page — how it works for schools | ⬜ To Do | 3-step: request pilot → onboard → track progress |
+| 3.11c | Schools page — pricing tiers | ⬜ To Do | Starter / Growth / Whole School (matches pitch deck) |
+| 3.11d | Schools page — pilot interest form | ⬜ To Do | Name, role, school name, number of students, email |
+| 3.11e | Schools page — testimonials / social proof | ⬜ To Do | Placeholder until real school pilots complete |
+| 3.11f | Schools page — nav link from main site | ⬜ To Do | Add "For Schools" link to main navigation |
 | 3.12 | Blog / SEO content | ⬜ To Do | Post-MVP — drives organic student traffic |
+| 3.13a | Admin notification on pilot form submission | ⬜ To Do | Email alert to Zulfi when a school submits interest |
 | 3.13 | Cookie consent banner | ⬜ To Do | Required for GDPR compliance |
 | 3.14 | Privacy Policy page | ⬜ To Do | Required before public launch |
 | 3.15 | Terms of Service page | ⬜ To Do | Required before public launch |
+
+---
+
+## 3b. Presentations & Version Control
+
+| # | Task | Status | Notes |
+|---|---|---|-|
+| P.1 | Presentations folder on GitHub | ✅ Done | `/presentations/` folder created in repo |
+| P.2 | Schools pitch deck v1 stored on GitHub | ✅ Done | All 10 slides in `/presentations/schools-pitch-v1/` |
+| P.3 | Presentations README with versioning guide | ✅ Done | Documents how to add new versions |
+| P.4 | Schools pitch deck v2 (post-feedback) | ⬜ To Do | Update after first round of school pitches |
+| P.5 | Investor / Cutlass Group update deck | ⬜ To Do | Progress update once MVP is live |
+| P.6 | Student-facing demo deck | ⬜ To Do | Short deck for student recruitment / social media |
 
 ---
 
@@ -185,7 +205,8 @@
 |---|---|---|---|---|
 | Business & Strategy | 6 | 0 | 4 | 10 |
 | Infrastructure & DevOps | 8 | 1 | 5 | 14 |
-| Marketing Website | 11 | 0 | 4 | 15 |
+| Marketing Website | 11 | 1 | 10 | 22 |
+| Presentations & Version Control | 3 | 0 | 3 | 6 |
 | Authentication | 0 | 0 | 8 | 8 |
 | Dashboard & Core UI | 0 | 0 | 10 | 10 |
 | AI & Topic Bank | 0 | 0 | 8 | 8 |
@@ -194,4 +215,4 @@
 | Teacher & School Features | 0 | 0 | 5 | 5 |
 | Compliance & Legal | 0 | 0 | 6 | 6 |
 | Testing & Launch | 0 | 0 | 6 | 6 |
-| **Total** | **25** | **1** | **71** | **97** |
+| **Total** | **28** | **2** | **80** | **110** |

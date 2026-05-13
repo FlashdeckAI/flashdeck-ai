@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: row;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+    }
+    .left-panel {
+      width: 58%;
+      min-height: 720px;
+      overflow: hidden;
+      position: relative;
+    }
+    .left-panel img {
+      width: 100%;
+      height: 720px;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .img-overlay-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 80px;
+      height: 100%;
+      background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+    }
+    .img-overlay-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to top, rgba(30,58,95,0.15) 0%, transparent 100%);
+    }
+    .right-panel {
+      width: 42%;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 40px;
+      padding-right: 56px;
+      padding-top: 52px;
+      position: relative;
+    }
+    .slide-num {
+      position: absolute;
+      top: 12px;
+      right: 32px;
+      font-size: 100px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: -4px;
+      line-height: 1;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .slide-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: #1e3a5f;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .slide-title span {
+      color: #2563eb;
+    }
+    .slide-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .accent-bar {
+      width: 40px;
+      height: 3px;
+      background: #2563eb;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .features-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      background: #2563eb;
+      border-radius: 50%;
+      margin-top: 6px;
+    }
+    .feature-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .feature-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .feature-desc {
+      font-size: 12px;
+      font-weight: 400;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+    }
+    .bottom-strip {
+      margin-top: 28px;
+      background: #eff6ff;
+      padding: 14px 16px;
+      border-left: 4px solid #2563eb;
+    }
+    .bottom-strip-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e3a5f;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+    }
+    .bottom-strip-text span {
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="left-panel">
+      <img src="/home/ubuntu/flashdeck-diagrams/pitch_teacher_dashboard.png" alt="FlashDeck teacher dashboard" />
+      <div class="img-overlay-right"></div>
+      <div class="img-overlay-bottom"></div>
+    </div>
+    <div class="right-panel">
+      <div class="slide-num">05</div>
+      <div class="section-label">For Schools</div>
+      <div class="slide-title">What <span>Schools</span> Get</div>
+      <div class="slide-subtitle">Everything a school needs to deploy FlashDeck across year groups — with full visibility for teachers and leadership.</div>
+      <div class="accent-bar"></div>
+      <div class="features-grid">
+        <div class="feature-row">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <div class="feature-title">Teacher Dashboard</div>
+            <div class="feature-desc">Real-time class progress, mastery rates per topic, and engagement data — all in one view.</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <div class="feature-title">Shared Deck Library</div>
+            <div class="feature-desc">Teachers create and share decks with entire classes. Students access them instantly.</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <div class="feature-title">Exam Board Alignment</div>
+            <div class="feature-desc">Every card is mapped to your school's chosen specification — AQA, Edexcel, OCR or Cambridge.</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <div class="feature-title">Student Mastery Reports</div>
+            <div class="feature-desc">Identify knowledge gaps before the exam, not after. Intervene early where it matters most.</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <div class="feature-title">Zero Paper Waste</div>
+            <div class="feature-desc">No printing, no stationery costs, no lost cards. Fully digital and environmentally responsible.</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-dot"></div>
+          <div class="feature-content">
+            <div class="feature-title">Admin Controls</div>
+            <div class="feature-desc">School-wide account management, class codes, and usage reporting for leadership teams.</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-strip">
+        <div class="bottom-strip-text">Works on <span>any device</span> — phone, tablet or laptop. No app download required.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

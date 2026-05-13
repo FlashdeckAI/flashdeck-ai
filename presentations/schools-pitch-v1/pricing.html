@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide-num {
+      position: absolute;
+      top: 16px;
+      right: 40px;
+      font-size: 100px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: -4px;
+      line-height: 1;
+      z-index: 0;
+    }
+    .top-section {
+      padding-left: 72px;
+      padding-right: 72px;
+      padding-top: 48px;
+      position: relative;
+      z-index: 1;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .slide-title {
+      font-size: 40px;
+      font-weight: 800;
+      color: #1e3a5f;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+    .slide-title span { color: #2563eb; }
+    .slide-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 32px;
+    }
+    .pricing-table {
+      padding-left: 72px;
+      padding-right: 72px;
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .tier {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-top: 3px solid #e2e8f0;
+      padding-top: 24px;
+      padding-right: 32px;
+    }
+    .tier.recommended {
+      background: #1e3a5f;
+      border-top: 3px solid #2563eb;
+      padding-left: 28px;
+      padding-right: 28px;
+      margin-left: -1px;
+      margin-right: -1px;
+      position: relative;
+    }
+    .tier.last {
+      padding-left: 32px;
+      padding-right: 0;
+      border-top: 3px solid #e2e8f0;
+    }
+    .rec-badge {
+      display: inline-block;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .tier-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .tier.recommended .tier-name { color: #93c5fd; }
+    .tier-price {
+      font-size: 56px;
+      font-weight: 800;
+      color: #1e3a5f;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .tier.recommended .tier-price { color: #ffffff; }
+    .tier-period {
+      font-size: 13px;
+      font-weight: 500;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 6px;
+    }
+    .tier.recommended .tier-period { color: #94a3b8; }
+    .tier-students {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-family: 'Inter', sans-serif;
+    }
+    .tier.recommended .tier-students { color: #60a5fa; }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #e2e8f0;
+      margin-bottom: 20px;
+    }
+    .tier.recommended .divider { background: rgba(255,255,255,0.15); }
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .check {
+      font-size: 13px;
+      color: #2563eb;
+      min-width: 16px;
+      margin-top: 1px;
+    }
+    .tier.recommended .check { color: #60a5fa; }
+    .feature-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+    }
+    .tier.recommended .feature-text { color: #cbd5e1; }
+    .tier-usd {
+      font-size: 14px;
+      font-weight: 500;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+    .tier.recommended .tier-usd { color: #64748b; }
+    .per-student {
+      margin-top: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+    }
+    .per-student-usd {
+      font-size: 11px;
+      font-weight: 400;
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+      margin-top: 2px;
+    }
+    .tier.recommended .per-student { color: #64748b; }
+    .tier.recommended .per-student-usd { color: #475569; }
+    .pilot-banner {
+      margin-top: 24px;
+      background: #eff6ff;
+      border-top: 2px solid #2563eb;
+      padding-top: 16px;
+      padding-left: 72px;
+      padding-right: 72px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .pilot-icon {
+      font-size: 22px;
+    }
+    .pilot-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .pilot-text span {
+      color: #2563eb;
+    }
+    .pilot-sub {
+      font-size: 13px;
+      font-weight: 400;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="slide-num">06</div>
+    <div class="top-section">
+      <div class="section-label">Investment</div>
+      <div class="slide-title">School Partnership <span>Pricing</span></div>
+      <div class="slide-subtitle">Simple, transparent annual licences. No per-student surprises. Every tier includes the full platform.</div>
+    </div>
+    <div class="pricing-table">
+      <!-- Starter -->
+      <div class="tier">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price">£499</div>
+        <div class="tier-usd">~$630 / year</div>
+        <div class="tier-period">per year</div>
+        <div class="tier-students">Up to 100 students</div>
+        <div class="divider"></div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Full AI flashcard generation</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">GCSE, IGCSE & A Level alignment</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Teacher dashboard (1 teacher)</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Student progress reports</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Email support</div></div>
+        </div>
+        <div class="per-student">£4.99 per student / year</div>
+        <div class="per-student-usd">~$6.30 per student / year</div>
+      </div>
+      <!-- Growth (Recommended) -->
+      <div class="tier recommended">
+        <div class="rec-badge">Most Popular</div>
+        <div class="tier-name">Growth</div>
+        <div class="tier-price">£999</div>
+        <div class="tier-usd">~$1,260 / year</div>
+        <div class="tier-period">per year</div>
+        <div class="tier-students">Up to 300 students</div>
+        <div class="divider"></div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Everything in Starter</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Unlimited teacher accounts</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Shared deck library (school-wide)</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Class-level mastery analytics</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Priority support & onboarding</div></div>
+        </div>
+        <div class="per-student">£3.33 per student / year</div>
+        <div class="per-student-usd">~$4.20 per student / year</div>
+      </div>
+      <!-- Whole School -->
+      <div class="tier last">
+        <div class="tier-name">Whole School</div>
+        <div class="tier-price">£1,999</div>
+        <div class="tier-usd">~$2,520 / year</div>
+        <div class="tier-period">per year</div>
+        <div class="tier-students">Unlimited students</div>
+        <div class="divider"></div>
+        <div class="feature-list">
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Everything in Growth</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Unlimited students & teachers</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Custom exam board configuration</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Dedicated account manager</div></div>
+          <div class="feature-row"><div class="check">✓</div><div class="feature-text">Early access to new features</div></div>
+        </div>
+        <div class="per-student">From £2.00 per student / year</div>
+        <div class="per-student-usd">~$2.50 per student / year</div>
+      </div>
+    </div>
+    <div class="pilot-banner">
+      <div class="pilot-icon">🎁</div>
+      <div class="pilot-text">Every tier starts with a <span>Free 6-Week Pilot</span> — no commitment, no payment required to get started.</div>
+      <div class="pilot-sub">We want you to see the impact before you invest.</div>
+    </div>
+  </div>
+</body>
+</html>

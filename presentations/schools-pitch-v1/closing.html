@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #1e3a5f;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1280px;
+      height: 720px;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      z-index: 0;
+    }
+    .top-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 180px;
+      background: linear-gradient(to bottom, rgba(15,30,55,0.85) 0%, transparent 100%);
+      z-index: 1;
+    }
+    .bottom-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(15,30,55,0.9) 0%, transparent 100%);
+      z-index: 1;
+    }
+    .top-content {
+      position: relative;
+      z-index: 2;
+      padding-left: 72px;
+      padding-right: 72px;
+      padding-top: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #60a5fa;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .closing-headline {
+      font-size: 44px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -1.2px;
+    }
+    .closing-headline span {
+      color: #60a5fa;
+    }
+    .bottom-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding-left: 72px;
+      padding-right: 72px;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .contact-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-icon {
+      font-size: 14px;
+      color: #60a5fa;
+      min-width: 18px;
+    }
+    .contact-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.2px;
+    }
+    .presenter-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .presenter-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .presenter-title {
+      font-size: 12px;
+      font-weight: 400;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+    }
+    .accent-line {
+      width: 48px;
+      height: 3px;
+      background: #2563eb;
+      margin-top: 8px;
+      align-self: flex-end;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <img class="bg-image" src="/home/ubuntu/flashdeck-diagrams/pitch_closing.png" alt="FlashDeck closing background" />
+    <div class="top-overlay"></div>
+    <div class="bottom-overlay"></div>
+    <div class="top-content">
+      <div class="section-label">Ready to Get Started?</div>
+      <div class="closing-headline">Let's bring <span>smarter revision</span><br>to your students.</div>
+    </div>
+    <div class="bottom-content">
+      <div class="contact-block">
+        <div class="contact-row">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-text">www.flashdeck.ai</div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">hello@flashdeck.ai</div>
+        </div>
+      </div>
+      <div class="presenter-block">
+        <div class="presenter-name">Zulfi</div>
+        <div class="presenter-title">FlashDeck.AI · Founder</div>
+        <div class="accent-line"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

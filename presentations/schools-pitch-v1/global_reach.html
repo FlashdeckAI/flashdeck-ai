@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: row;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+    }
+    .left-panel {
+      width: 36%;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 64px;
+      padding-right: 36px;
+      padding-top: 60px;
+      position: relative;
+    }
+    .slide-num {
+      font-size: 120px;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1;
+      position: absolute;
+      top: 16px;
+      left: 48px;
+      letter-spacing: -4px;
+      z-index: 0;
+    }
+    .content-wrap {
+      position: relative;
+      z-index: 1;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .slide-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: #1e3a5f;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .slide-title span {
+      color: #2563eb;
+    }
+    .accent-bar {
+      width: 40px;
+      height: 3px;
+      background: #2563eb;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .intro-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #64748b;
+      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 28px;
+    }
+    .market-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .market-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .market-flag {
+      font-size: 22px;
+      line-height: 1;
+      min-width: 28px;
+    }
+    .market-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .market-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .market-desc {
+      font-size: 12px;
+      font-weight: 400;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #e2e8f0;
+      margin-top: 28px;
+      margin-bottom: 20px;
+    }
+    .total-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .total-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -1px;
+    }
+    .total-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      line-height: 1.4;
+    }
+    .right-panel {
+      width: 64%;
+      min-height: 720px;
+      overflow: hidden;
+      position: relative;
+    }
+    .right-panel img {
+      width: 100%;
+      height: 720px;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .left-fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 100%;
+      background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="left-panel">
+      <div class="slide-num">05</div>
+      <div class="content-wrap">
+        <div class="section-label">Global Reach</div>
+        <div class="slide-title">Built for Your Students,<br><span>Wherever They Are</span></div>
+        <div class="accent-bar"></div>
+        <div class="intro-text">FlashDeck is designed for the global GCSE, IGCSE and A Level community. Our initial focus markets reflect where demand is strongest and growing fastest.</div>
+        <div class="market-list">
+          <div class="market-item">
+            <div class="market-flag">🇬🇧</div>
+            <div class="market-text">
+              <div class="market-name">United Kingdom</div>
+              <div class="market-desc">GCSE & A Level — AQA, Edexcel, OCR, WJEC</div>
+            </div>
+          </div>
+          <div class="market-item">
+            <div class="market-flag">🇵🇰</div>
+            <div class="market-text">
+              <div class="market-name">Pakistan</div>
+              <div class="market-desc">Cambridge IGCSE & A Level — O Levels, Matric</div>
+            </div>
+          </div>
+          <div class="market-item">
+            <div class="market-flag">🇳🇬</div>
+            <div class="market-text">
+              <div class="market-name">Nigeria</div>
+              <div class="market-desc">Cambridge IGCSE, WAEC & international curricula</div>
+            </div>
+          </div>
+          <div class="market-item">
+            <div class="market-flag">🌍</div>
+            <div class="market-text">
+              <div class="market-name">Middle East</div>
+              <div class="market-desc">UAE, Saudi Arabia, Qatar — British & international schools</div>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="total-row">
+          <div class="total-num">5.75M+</div>
+          <div class="total-label">Target students<br>across all four markets</div>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <img src="/home/ubuntu/flashdeck-diagrams/pitch_world_map.png" alt="World map showing FlashDeck target markets" />
+      <div class="left-fade"></div>
+    </div>
+  </div>
+</body>
+</html>

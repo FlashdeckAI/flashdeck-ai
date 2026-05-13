@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide-num {
+      position: absolute;
+      top: 16px;
+      right: 40px;
+      font-size: 100px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: -4px;
+      line-height: 1;
+      z-index: 0;
+    }
+    .top-section {
+      padding-left: 72px;
+      padding-right: 72px;
+      padding-top: 52px;
+      position: relative;
+      z-index: 1;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .slide-title {
+      font-size: 40px;
+      font-weight: 800;
+      color: #1e3a5f;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .slide-title span {
+      color: #2563eb;
+    }
+    .slide-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 40px;
+    }
+    .testimonials-row {
+      padding-left: 72px;
+      padding-right: 72px;
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .block-top-bar {
+      height: 4px;
+      background: #2563eb;
+      margin-bottom: 24px;
+    }
+    .block-top-bar.placeholder {
+      background: #e2e8f0;
+      border-top: 2px dashed #cbd5e1;
+      height: 0;
+      margin-bottom: 24px;
+    }
+    .quote-mark {
+      font-size: 56px;
+      font-weight: 800;
+      color: #dbeafe;
+      line-height: 0.8;
+      margin-bottom: 12px;
+      font-family: 'Georgia', serif;
+    }
+    .quote-mark.placeholder {
+      color: #f1f5f9;
+    }
+    .quote-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1e293b;
+      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .quote-text.placeholder {
+      color: #94a3b8;
+      font-style: normal;
+    }
+    .attribution {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .avatar.blue { background: #2563eb; }
+    .avatar.green { background: #16a34a; }
+    .avatar.placeholder {
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      color: #94a3b8;
+      font-size: 20px;
+    }
+    .attr-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .attr-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .attr-role {
+      font-size: 12px;
+      font-weight: 400;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+    }
+    .early-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #2563eb;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .divider {
+      width: 1px;
+      background: #e2e8f0;
+      align-self: stretch;
+    }
+    .bottom-note {
+      padding-left: 72px;
+      padding-right: 72px;
+      padding-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .note-line {
+      width: 32px;
+      height: 2px;
+      background: #2563eb;
+    }
+    .note-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="slide-num">08</div>
+    <div class="top-section">
+      <div class="section-label">Early Voices</div>
+      <div class="slide-title">What People Are <span>Saying</span></div>
+      <div class="slide-subtitle">FlashDeck is in early access — here's what students and educators are telling us so far.</div>
+    </div>
+    <div class="testimonials-row">
+      <div class="testimonial-block">
+        <div class="block-top-bar"></div>
+        <div class="quote-mark">"</div>
+        <div class="quote-text">"FlashDeck has saved me so much revision time. I can focus on what I don't know and actually see my progress week by week. I used to spend hours writing cards — now I just type the topic and I'm ready to study."</div>
+        <div class="attribution">
+          <div class="avatar blue">P</div>
+          <div class="attr-text">
+            <div class="attr-name">Priya V.</div>
+            <div class="attr-role">Year 11 · AQA Biology · Manchester</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="testimonial-block">
+        <div class="block-top-bar"></div>
+        <div class="quote-mark">"</div>
+        <div class="quote-text">"FlashDeck gives me genuine insight into where my class is struggling. I can see which topics have low mastery scores and adjust my teaching accordingly. It's the visibility I've always wanted."</div>
+        <div class="attribution">
+          <div class="avatar green">S</div>
+          <div class="attr-text">
+            <div class="attr-name">Sarah T.</div>
+            <div class="attr-role">Head of Science · Secondary School</div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="testimonial-block">
+        <div class="block-top-bar placeholder"></div>
+        <div class="early-badge">Early Access Partner</div>
+        <div class="quote-mark placeholder">"</div>
+        <div class="quote-text placeholder">We are actively seeking our first school partners to shape the FlashDeck experience. Early access schools receive priority onboarding, direct input into the product roadmap, and preferential partnership terms.</div>
+        <div class="attribution">
+          <div class="avatar placeholder">🏫</div>
+          <div class="attr-text">
+            <div class="attr-name">Your School Here</div>
+            <div class="attr-role">Be among the first to partner with FlashDeck</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-note">
+      <div class="note-line"></div>
+      <div class="note-text">FlashDeck is currently in early access. Testimonials reflect genuine user feedback from the beta programme.</div>
+    </div>
+  </div>
+</body>
+</html>

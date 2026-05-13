@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .slide-container {
+      width: 1280px;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: row;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+    }
+    .left-panel {
+      width: 44%;
+      min-height: 720px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 64px;
+      padding-right: 40px;
+      padding-top: 60px;
+      position: relative;
+    }
+    .slide-num {
+      font-size: 120px;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1;
+      position: absolute;
+      top: 20px;
+      left: 48px;
+      letter-spacing: -4px;
+      z-index: 0;
+    }
+    .content-wrap {
+      position: relative;
+      z-index: 1;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .slide-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: #1e3a5f;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .slide-title span {
+      color: #2563eb;
+    }
+    .accent-bar {
+      width: 40px;
+      height: 3px;
+      background: #2563eb;
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .problem-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .problem-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .problem-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: #e2e8f0;
+      line-height: 1;
+      min-width: 36px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .problem-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .problem-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e3a5f;
+    }
+    .problem-desc {
+      font-size: 13px;
+      font-weight: 400;
+      color: #64748b;
+      line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+    }
+    .stat-callout {
+      margin-top: 32px;
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 14px 18px;
+    }
+    .stat-callout-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e3a5f;
+      line-height: 1.4;
+      font-family: 'Inter', sans-serif;
+    }
+    .stat-callout-text span {
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .right-panel {
+      width: 56%;
+      min-height: 720px;
+      overflow: hidden;
+      position: relative;
+    }
+    .right-panel img {
+      width: 100%;
+      height: 720px;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .img-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 100%;
+      background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <div class="left-panel">
+      <div class="slide-num">01</div>
+      <div class="content-wrap">
+        <div class="section-label">The Challenge</div>
+        <div class="slide-title">The Revision<br><span>Problem</span></div>
+        <div class="accent-bar"></div>
+        <div class="problem-list">
+          <div class="problem-item">
+            <div class="problem-num">01</div>
+            <div class="problem-text">
+              <div class="problem-heading">Hours lost to ineffective methods</div>
+              <div class="problem-desc">Students spend up to 4 hours writing cards by hand — time that could be spent actually learning.</div>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-num">02</div>
+            <div class="problem-text">
+              <div class="problem-heading">No alignment to the specification</div>
+              <div class="problem-desc">Generic revision tools don't know the difference between AQA and Edexcel. FlashDeck does.</div>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-num">03</div>
+            <div class="problem-text">
+              <div class="problem-heading">Teachers have no visibility</div>
+              <div class="problem-desc">Schools invest in revision resources but have no data on whether students are actually using them.</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-callout">
+          <div class="stat-callout-text">Students who use active recall are <span>up to 2× more likely</span> to retain information than those who re-read notes. — Cognitive Science Research</div>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <img src="/home/ubuntu/flashdeck-diagrams/pitch_revision_problem.png" alt="Student overwhelmed by revision" />
+      <div class="img-overlay"></div>
+    </div>
+  </div>
+</body>
+</html>
