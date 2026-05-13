@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms &amp; Conditions — FlashDeck.AI</title>
+  <meta name="description" content="FlashDeck.AI Terms and Conditions — the rules governing your use of the platform." />
+  <link rel="icon" href="https://flashdeck.ai/favicon.ico" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0f2a4a;
+      --blue: #1a56db;
+      --blue-light: #3b82f6;
+      --accent: #10b981;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --white: #ffffff;
+    }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
+    nav { background: var(--navy); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo-icon { width: 32px; height: 32px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .nav-logo-icon svg { width: 18px; height: 18px; fill: white; }
+    .nav-logo-text { font-size: 1.2rem; font-weight: 700; color: white; }
+    .nav-logo-text span { color: var(--blue-light); }
+    .nav-back { color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
+    .nav-back:hover { color: white; }
+    .policy-hero { background: linear-gradient(135deg, var(--navy) 0%, #1e3a5f 100%); padding: 4rem 2rem 3rem; text-align: center; }
+    .policy-hero .badge { display: inline-block; background: rgba(26,86,219,0.3); color: var(--blue-light); border: 1px solid rgba(59,130,246,0.4); border-radius: 100px; padding: 0.3rem 1rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+    .policy-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: white; margin-bottom: 0.75rem; }
+    .policy-hero p { color: #94a3b8; font-size: 1rem; max-width: 600px; margin: 0 auto 1.5rem; }
+    .policy-meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .policy-meta span { color: #64748b; font-size: 0.85rem; }
+    .policy-meta strong { color: #94a3b8; }
+    .policy-layout { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    .toc { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+    .toc h2 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc ol { padding-left: 1.2rem; }
+    .toc li { margin-bottom: 0.4rem; }
+    .toc a { color: var(--blue); text-decoration: none; font-size: 0.95rem; }
+    .toc a:hover { text-decoration: underline; }
+    .policy-section { margin-bottom: 3rem; }
+    .policy-section h2 { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+    .policy-section h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 1.5rem 0 0.5rem; }
+    .policy-section p { margin-bottom: 1rem; color: var(--text); font-size: 0.97rem; }
+    .policy-section ul, .policy-section ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .policy-section li { margin-bottom: 0.4rem; font-size: 0.97rem; }
+    .policy-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .policy-table th { background: var(--navy); color: white; padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .policy-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .policy-table tr:nth-child(even) td { background: #f8fafc; }
+    .highlight-box { background: #eff6ff; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+    .highlight-box p { margin: 0; font-size: 0.95rem; color: #1e40af; }
+    .warning-box { background: #fff7ed; border-left: 4px solid #f97316; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+    .warning-box p { margin: 0; font-size: 0.95rem; color: #9a3412; }
+    .contact-box { background: var(--navy); color: white; border-radius: 12px; padding: 2rem; margin-top: 3rem; text-align: center; }
+    .contact-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .contact-box p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1rem; }
+    .contact-box a { color: var(--blue-light); text-decoration: none; font-weight: 600; }
+    footer { background: var(--navy); color: #64748b; text-align: center; padding: 1.5rem; font-size: 0.85rem; }
+    footer a { color: #94a3b8; text-decoration: none; margin: 0 0.5rem; }
+    footer a:hover { color: white; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
+    </div>
+    <span class="nav-logo-text">Flash<span>Deck</span>.AI</span>
+  </a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="policy-hero">
+  <div class="badge">Legal</div>
+  <h1>Terms &amp; Conditions</h1>
+  <p>The rules governing your use of FlashDeck.AI — please read before using the platform.</p>
+  <div class="policy-meta">
+    <span><strong>Effective date:</strong> 13 May 2026</span>
+    <span><strong>Last updated:</strong> 13 May 2026</span>
+    <span><strong>Version:</strong> 1.0</span>
+  </div>
+</div>
+
+<div class="policy-layout">
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#the-service">The Service</a></li>
+      <li><a href="#accounts">Accounts and Registration</a></li>
+      <li><a href="#acceptable-use">Acceptable Use</a></li>
+      <li><a href="#subscriptions">Subscriptions and Payments</a></li>
+      <li><a href="#free-tier">Free Tier Limitations</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#ai-content">AI-Generated Content</a></li>
+      <li><a href="#schools">School and Institutional Accounts</a></li>
+      <li><a href="#termination">Termination</a></li>
+      <li><a href="#disclaimers">Disclaimers</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#governing-law">Governing Law</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>Plain English summary:</strong> Use FlashDeck for legitimate revision purposes. Don't misuse the AI. Pay for what you use. The flashcards you generate belong to you for personal study. We're not liable if an exam question doesn't match our cards — always check your official syllabus.</p>
+  </div>
+
+  <div class="policy-section" id="acceptance">
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing or using FlashDeck.AI ("FlashDeck", "the Service", "the Platform"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, you must not use the Service.</p>
+    <p>If you are under 18 years of age, you confirm that you have obtained the consent of a parent or guardian to use the Service. If you are registering on behalf of a school or institution, you confirm that you have authority to bind that organisation to these Terms.</p>
+    <p>These Terms were last updated on 13 May 2026. Continued use of the Service after any changes constitutes acceptance of the updated Terms.</p>
+  </div>
+
+  <div class="policy-section" id="the-service">
+    <h2>2. The Service</h2>
+    <p>FlashDeck.AI is an AI-powered revision platform that generates exam-ready flashcards for students studying GCSE, IGCSE, A Level, and equivalent qualifications worldwide. The Service includes:</p>
+    <ul>
+      <li>AI-powered flashcard generation aligned to major exam boards (AQA, Edexcel, Cambridge, OCR, and others)</li>
+      <li>A personal deck library for storing and organising generated flashcards</li>
+      <li>A study interface with spaced repetition scheduling</li>
+      <li>Progress tracking and performance analytics</li>
+      <li>School and institutional features (on applicable plans)</li>
+    </ul>
+    <p>We reserve the right to modify, suspend, or discontinue any part of the Service at any time, with reasonable notice where practicable.</p>
+  </div>
+
+  <div class="policy-section" id="accounts">
+    <h2>3. Accounts and Registration</h2>
+    <p>To access the full features of FlashDeck, you must create an account. You agree to:</p>
+    <ul>
+      <li>Provide accurate, current, and complete information during registration</li>
+      <li>Keep your account credentials secure and not share them with others</li>
+      <li>Notify us immediately at hello@flashdeck.ai if you suspect unauthorised access to your account</li>
+      <li>Be responsible for all activity that occurs under your account</li>
+    </ul>
+    <p>You may not create more than one free account per person. Creating multiple accounts to circumvent free tier limits is a violation of these Terms and may result in all accounts being suspended.</p>
+  </div>
+
+  <div class="policy-section" id="acceptable-use">
+    <h2>4. Acceptable Use</h2>
+    <p>You agree to use FlashDeck only for lawful purposes and in accordance with these Terms. You must not:</p>
+    <ul>
+      <li>Use the Service to generate content that is illegal, harmful, defamatory, or offensive</li>
+      <li>Attempt to reverse-engineer, scrape, or extract data from the platform in bulk</li>
+      <li>Use automated tools, bots, or scripts to generate flashcards at scale beyond normal personal use</li>
+      <li>Resell, redistribute, or commercially exploit flashcard content generated by the Service without our written permission</li>
+      <li>Attempt to circumvent any usage limits, paywalls, or access controls</li>
+      <li>Upload or submit content that infringes third-party intellectual property rights</li>
+      <li>Interfere with or disrupt the integrity or performance of the Service</li>
+      <li>Use the Service in any way that could damage, disable, or impair our infrastructure</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these rules without prior notice.</p>
+  </div>
+
+  <div class="policy-section" id="subscriptions">
+    <h2>5. Subscriptions and Payments</h2>
+    <h3>Subscription Plans</h3>
+    <p>FlashDeck offers a free tier and paid subscription plans. Paid plans are billed monthly or annually, as selected at the time of purchase. Current pricing is displayed at <a href="https://www.flashdeck.ai/#pricing">www.flashdeck.ai/#pricing</a>.</p>
+
+    <h3>Billing</h3>
+    <p>Payments are processed securely by Stripe. By subscribing, you authorise us to charge your payment method on a recurring basis at the start of each billing period. All prices are shown in USD; local currency equivalents may be displayed for reference.</p>
+
+    <h3>Cancellation</h3>
+    <p>You may cancel your subscription at any time from your account settings. Cancellation takes effect at the end of the current billing period — you will retain access to Premium features until that date. We do not offer pro-rata refunds for partial billing periods.</p>
+
+    <h3>Refunds</h3>
+    <p>We offer a <strong>7-day money-back guarantee</strong> for new Premium subscribers. If you are not satisfied within the first 7 days of your first paid subscription, contact us at hello@flashdeck.ai for a full refund. After 7 days, payments are non-refundable except where required by applicable consumer law.</p>
+
+    <h3>Price Changes</h3>
+    <p>We reserve the right to change subscription prices. We will give at least 30 days' notice of any price increase, and you may cancel before the new price takes effect.</p>
+  </div>
+
+  <div class="policy-section" id="free-tier">
+    <h2>6. Free Tier Limitations</h2>
+    <p>The free tier of FlashDeck allows users to generate up to <strong>100 flashcards per month</strong>. Once this limit is reached, you will be prompted to upgrade to a Premium subscription to continue generating new cards. You may continue to study previously generated cards on the free tier without restriction.</p>
+    <p>We reserve the right to adjust free tier limits at any time, with reasonable notice to existing users.</p>
+  </div>
+
+  <div class="policy-section" id="ip">
+    <h2>7. Intellectual Property</h2>
+    <h3>FlashDeck's Intellectual Property</h3>
+    <p>The FlashDeck platform, including its design, code, branding, and underlying technology, is owned by FlashDeck.AI and protected by copyright, trademark, and other intellectual property laws. You may not copy, reproduce, or create derivative works from any part of the platform without our written permission.</p>
+
+    <h3>Your Content</h3>
+    <p>Flashcards generated through FlashDeck using your topic inputs are provided for your personal educational use. You retain the right to use, study, and share these cards for non-commercial, personal revision purposes. You may not sell, license, or commercially redistribute AI-generated flashcard content from FlashDeck.</p>
+
+    <h3>Feedback</h3>
+    <p>If you submit feedback, suggestions, or ideas about the Service, you grant us a non-exclusive, royalty-free, perpetual licence to use that feedback to improve the platform.</p>
+  </div>
+
+  <div class="policy-section" id="ai-content">
+    <h2>8. AI-Generated Content</h2>
+    <p>FlashDeck uses artificial intelligence (Anthropic's Claude) to generate flashcard content. You acknowledge and agree that:</p>
+    <ul>
+      <li>AI-generated content may occasionally contain inaccuracies, errors, or outdated information</li>
+      <li>Flashcards are intended as a revision aid and should not be relied upon as the sole source of exam preparation</li>
+      <li>You should always verify important content against your official syllabus, textbooks, and teacher guidance</li>
+      <li>FlashDeck does not guarantee that generated content will match the exact wording or scope of any specific exam paper</li>
+    </ul>
+    <div class="warning-box">
+      <p><strong>Important:</strong> FlashDeck is a revision tool, not a substitute for your official course materials. Always cross-reference with your school's resources and official exam board specifications.</p>
+    </div>
+  </div>
+
+  <div class="policy-section" id="schools">
+    <h2>9. School and Institutional Accounts</h2>
+    <p>Schools, colleges, and tuition centres ("Institutions") may access FlashDeck under a school subscription or pilot programme. By registering an institutional account, the Institution agrees that:</p>
+    <ul>
+      <li>The designated administrator is authorised to act on behalf of the Institution</li>
+      <li>The Institution is responsible for ensuring students use the platform in accordance with these Terms</li>
+      <li>The Institution will obtain any necessary consents from parents or guardians for students under 16</li>
+      <li>The Institution will enter into a Data Processing Agreement (DPA) with FlashDeck.AI before deploying the platform to students — contact hello@flashdeck.ai to request a DPA</li>
+    </ul>
+    <p>Pilot accounts are provided free of charge for a defined period (typically 6 weeks) and are subject to the same Terms as paid accounts. At the end of the pilot period, the Institution may upgrade to a paid plan or the account will be deactivated.</p>
+  </div>
+
+  <div class="policy-section" id="termination">
+    <h2>10. Termination</h2>
+    <p>You may delete your account at any time from your account settings. Upon deletion, your personal data will be removed within 30 days in accordance with our Privacy Policy.</p>
+    <p>We reserve the right to suspend or terminate your account immediately if you breach these Terms, engage in fraudulent activity, or use the Service in a way that causes harm to others or to the platform. In such cases, no refund will be issued for any remaining subscription period.</p>
+    <p>Upon termination, your right to access the Service ceases immediately. Any flashcard data associated with your account will be deleted in accordance with our data retention policy.</p>
+  </div>
+
+  <div class="policy-section" id="disclaimers">
+    <h2>11. Disclaimers</h2>
+    <p>The Service is provided on an "as is" and "as available" basis. To the fullest extent permitted by law, FlashDeck.AI makes no warranties, express or implied, including but not limited to:</p>
+    <ul>
+      <li>That the Service will be uninterrupted, error-free, or free from viruses</li>
+      <li>That AI-generated flashcard content will be accurate, complete, or up to date</li>
+      <li>That use of the Service will result in improved exam performance</li>
+      <li>That the Service will meet your specific requirements</li>
+    </ul>
+    <p>Nothing in these Terms excludes or limits our liability for death or personal injury caused by negligence, fraud, or any other liability that cannot be excluded by law.</p>
+  </div>
+
+  <div class="policy-section" id="liability">
+    <h2>12. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by applicable law, FlashDeck.AI's total liability to you for any claim arising out of or in connection with these Terms or the Service shall not exceed the greater of: (a) the total amount you paid to FlashDeck.AI in the 12 months preceding the claim, or (b) £50.</p>
+    <p>We shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of data, loss of revenue, or loss of educational opportunity, even if we have been advised of the possibility of such damages.</p>
+  </div>
+
+  <div class="policy-section" id="governing-law">
+    <h2>13. Governing Law</h2>
+    <p>These Terms are governed by and construed in accordance with the laws of England and Wales. Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+    <p>If you are a consumer resident in another jurisdiction, you may also have rights under the laws of your country of residence that cannot be excluded by this clause.</p>
+  </div>
+
+  <div class="policy-section" id="changes">
+    <h2>14. Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. When we make material changes, we will notify registered users by email and update the "Last updated" date at the top of this page. Your continued use of the Service after the effective date of any changes constitutes your acceptance of the updated Terms.</p>
+    <p>If you do not agree to the updated Terms, you must stop using the Service and may delete your account.</p>
+  </div>
+
+  <div class="policy-section" id="contact">
+    <h2>15. Contact</h2>
+    <p>If you have any questions about these Terms, please contact us:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a></li>
+      <li><strong>Website:</strong> <a href="https://www.flashdeck.ai">www.flashdeck.ai</a></li>
+    </ul>
+  </div>
+
+  <div class="contact-box">
+    <h3>Questions about these Terms?</h3>
+    <p>We're happy to clarify anything. Get in touch and we'll respond within 2 working days.</p>
+    <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 FlashDeck.AI. All rights reserved. &nbsp;|&nbsp;
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms &amp; Conditions</a>
+    <a href="/sustainability.html">Sustainability</a>
+    <a href="/">Home</a>
+  </p>
+</footer>
+
+</body>
+</html>

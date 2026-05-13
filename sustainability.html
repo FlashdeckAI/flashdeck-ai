@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sustainability Policy — FlashDeck.AI</title>
+  <meta name="description" content="FlashDeck.AI Sustainability Policy — our commitment to digital-first, paper-free revision and environmental responsibility." />
+  <link rel="icon" href="https://flashdeck.ai/favicon.ico" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0f2a4a;
+      --blue: #1a56db;
+      --blue-light: #3b82f6;
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --green-dark: #065f46;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --white: #ffffff;
+    }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; }
+    nav { background: var(--navy); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo-icon { width: 32px; height: 32px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .nav-logo-icon svg { width: 18px; height: 18px; fill: white; }
+    .nav-logo-text { font-size: 1.2rem; font-weight: 700; color: white; }
+    .nav-logo-text span { color: var(--blue-light); }
+    .nav-back { color: #94a3b8; text-decoration: none; font-size: 0.9rem; }
+    .nav-back:hover { color: white; }
+
+    /* HERO */
+    .policy-hero { background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%); padding: 4rem 2rem 3rem; text-align: center; }
+    .policy-hero .badge { display: inline-block; background: rgba(16,185,129,0.25); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.4); border-radius: 100px; padding: 0.3rem 1rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+    .policy-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: white; margin-bottom: 0.75rem; }
+    .policy-hero p { color: #a7f3d0; font-size: 1rem; max-width: 600px; margin: 0 auto 1.5rem; }
+    .policy-meta { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .policy-meta span { color: #6ee7b7; font-size: 0.85rem; }
+    .policy-meta strong { color: #a7f3d0; }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--green); padding: 2rem; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-item .number { font-size: 2rem; font-weight: 800; color: white; display: block; }
+    .stat-item .label { font-size: 0.85rem; color: #d1fae5; }
+
+    /* LAYOUT */
+    .policy-layout { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+    .policy-section { margin-bottom: 3rem; }
+    .policy-section h2 { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--green-light); }
+    .policy-section h3 { font-size: 1.1rem; font-weight: 600; color: var(--text); margin: 1.5rem 0 0.5rem; }
+    .policy-section p { margin-bottom: 1rem; color: var(--text); font-size: 0.97rem; }
+    .policy-section ul { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .policy-section li { margin-bottom: 0.5rem; font-size: 0.97rem; }
+
+    /* COMMITMENT CARDS */
+    .commitment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .commitment-card { background: white; border: 1px solid var(--border); border-top: 4px solid var(--green); border-radius: 12px; padding: 1.5rem; }
+    .commitment-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .commitment-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .commitment-card p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+
+    /* COMPARISON TABLE */
+    .policy-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .policy-table th { background: var(--green-dark); color: white; padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .policy-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .policy-table tr:nth-child(even) td { background: #f0fdf4; }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: #ef4444; font-weight: 700; }
+
+    /* PLEDGE BOX */
+    .pledge-box { background: linear-gradient(135deg, #064e3b, #065f46); color: white; border-radius: 16px; padding: 2.5rem; margin: 2.5rem 0; text-align: center; }
+    .pledge-box h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .pledge-box p { color: #a7f3d0; font-size: 1rem; max-width: 600px; margin: 0 auto 1.5rem; }
+    .pledge-items { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .pledge-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #6ee7b7; }
+
+    /* GREEN BOX */
+    .green-box { background: #f0fdf4; border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+    .green-box p { margin: 0; font-size: 0.95rem; color: var(--green-dark); }
+
+    /* CONTACT BOX */
+    .contact-box { background: var(--navy); color: white; border-radius: 12px; padding: 2rem; margin-top: 3rem; text-align: center; }
+    .contact-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .contact-box p { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1rem; }
+    .contact-box a { color: var(--blue-light); text-decoration: none; font-weight: 600; }
+
+    footer { background: var(--navy); color: #64748b; text-align: center; padding: 1.5rem; font-size: 0.85rem; }
+    footer a { color: #94a3b8; text-decoration: none; margin: 0 0.5rem; }
+    footer a:hover { color: white; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
+    </div>
+    <span class="nav-logo-text">Flash<span>Deck</span>.AI</span>
+  </a>
+  <a href="/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="policy-hero">
+  <div class="badge">🌱 Sustainability</div>
+  <h1>Sustainability Policy</h1>
+  <p>Our commitment to paper-free revision, responsible technology, and a greener future for education.</p>
+  <div class="policy-meta">
+    <span><strong>Effective date:</strong> 13 May 2026</span>
+    <span><strong>Last updated:</strong> 13 May 2026</span>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-item">
+    <span class="number">~250g</span>
+    <span class="label">CO₂ saved per student per year<br>vs. paper flashcards</span>
+  </div>
+  <div class="stat-item">
+    <span class="number">Zero</span>
+    <span class="label">Physical materials<br>used or wasted</span>
+  </div>
+  <div class="stat-item">
+    <span class="number">100%</span>
+    <span class="label">Digital-first<br>platform</span>
+  </div>
+  <div class="stat-item">
+    <span class="number">£0</span>
+    <span class="label">Stationery spend<br>for students on FlashDeck</span>
+  </div>
+</div>
+
+<div class="policy-layout">
+
+  <div class="policy-section">
+    <h2>Our Sustainability Mission</h2>
+    <p>FlashDeck.AI was built on a simple but powerful premise: the best revision tool is one that works better for students <em>and</em> better for the planet. Every year, millions of students around the world purchase index cards, revision guides, and printed materials that are used for a few weeks and then discarded. We believe there is a smarter way.</p>
+    <p>By replacing physical flashcards with AI-generated digital ones, FlashDeck eliminates paper waste, reduces stationery costs, and delivers a more effective revision experience — all at the same time. Sustainability is not an afterthought for us; it is built into the core purpose of the product.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>The Environmental Impact of Paper Revision</h2>
+    <p>The scale of paper consumption in student revision is significant. A typical GCSE student preparing for 10 subjects might purchase 500–1,000 index cards, multiple revision guides, and printed practice papers. Across the UK alone, millions of students sit GCSE and A Level exams each year — and the vast majority of that paper ends up in landfill or recycling within weeks of the exam.</p>
+
+    <table class="policy-table">
+      <thead>
+        <tr><th>Revision Method</th><th>Paper Used</th><th>CO₂ Equivalent</th><th>Cost to Student</th><th>Reusable?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Traditional paper flashcards</strong></td>
+          <td>~500 cards per subject</td>
+          <td>~25g CO₂ per pack</td>
+          <td>£5–£15 per subject</td>
+          <td class="cross">✗ Single use</td>
+        </tr>
+        <tr>
+          <td><strong>Printed revision guides</strong></td>
+          <td>~200 pages per guide</td>
+          <td>~1.5kg CO₂ per book</td>
+          <td>£8–£15 per guide</td>
+          <td class="cross">✗ Rarely resold</td>
+        </tr>
+        <tr>
+          <td><strong>FlashDeck.AI</strong></td>
+          <td>Zero</td>
+          <td>Minimal (cloud hosting)</td>
+          <td>$7/month (all subjects)</td>
+          <td class="check">✓ Unlimited reuse</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="green-box">
+      <p><strong>Estimated saving:</strong> A student using FlashDeck instead of paper cards across 5 GCSE subjects could avoid purchasing approximately 2,500 index cards and 5 revision guides — saving an estimated 8–10kg of paper and £50–£90 in stationery costs per exam season.</p>
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2>Our Commitments</h2>
+
+    <div class="commitment-grid">
+      <div class="commitment-card">
+        <div class="icon">📄</div>
+        <h3>Zero Paper Operations</h3>
+        <p>FlashDeck operates as a fully digital business. We do not produce printed marketing materials, physical products, or paper-based communications.</p>
+      </div>
+      <div class="commitment-card">
+        <div class="icon">☁️</div>
+        <h3>Green Cloud Infrastructure</h3>
+        <p>Our platform runs on Vercel and Supabase, both of which operate on cloud infrastructure with commitments to renewable energy and carbon neutrality.</p>
+      </div>
+      <div class="commitment-card">
+        <div class="icon">🤖</div>
+        <h3>Efficient AI Usage</h3>
+        <p>Our Topic Bank architecture means we call the AI only when genuinely needed — reusing cached content to minimise unnecessary compute and energy consumption.</p>
+      </div>
+      <div class="commitment-card">
+        <div class="icon">🌍</div>
+        <h3>Global Access, Local Impact</h3>
+        <p>By serving students in 140+ countries digitally, we eliminate the carbon footprint of shipping physical revision materials internationally.</p>
+      </div>
+      <div class="commitment-card">
+        <div class="icon">♻️</div>
+        <h3>Data Minimisation</h3>
+        <p>We collect only the data we need and delete it when it is no longer required — reducing storage energy consumption and respecting user privacy simultaneously.</p>
+      </div>
+      <div class="commitment-card">
+        <div class="icon">📊</div>
+        <h3>Transparency</h3>
+        <p>We commit to publishing an annual sustainability report as the platform grows, tracking our environmental impact and progress against our commitments.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2>Responsible AI</h2>
+    <p>Artificial intelligence carries its own environmental footprint — training and running large language models requires significant computing power and energy. We take this responsibility seriously and have made deliberate choices to minimise our AI-related environmental impact:</p>
+    <ul>
+      <li><strong>We use Claude Haiku</strong> — Anthropic's most efficient model, optimised for speed and low energy consumption, rather than larger, more resource-intensive models.</li>
+      <li><strong>Topic Bank caching</strong> — our architecture stores generated flashcard content and reuses it across users, meaning we make significantly fewer AI API calls than a system that generates fresh content for every request.</li>
+      <li><strong>No unnecessary generation</strong> — we only call the AI when a user genuinely needs new content that does not already exist in our knowledge bank.</li>
+    </ul>
+    <p>We will continue to monitor the energy efficiency of our AI providers and switch to greener alternatives as they become available.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>Sustainability in Schools</h2>
+    <p>When FlashDeck is deployed in a school, the environmental benefits multiply. A school of 500 students using FlashDeck across their GCSE revision could collectively avoid purchasing tens of thousands of index cards and hundreds of revision guides each academic year — representing a meaningful reduction in paper consumption and waste at the institutional level.</p>
+    <p>We encourage schools to include FlashDeck's adoption in their own sustainability reporting and environmental policies, and we are happy to provide data on estimated paper savings upon request.</p>
+  </div>
+
+  <div class="pledge-box">
+    <h3>The FlashDeck Sustainability Pledge</h3>
+    <p>We commit to building and operating FlashDeck in a way that is good for students, good for schools, and good for the planet.</p>
+    <div class="pledge-items">
+      <div class="pledge-item">🌱 Zero paper operations</div>
+      <div class="pledge-item">⚡ Efficient AI usage</div>
+      <div class="pledge-item">☁️ Green cloud infrastructure</div>
+      <div class="pledge-item">📊 Annual impact reporting</div>
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2>Looking Ahead</h2>
+    <p>As FlashDeck grows, we intend to deepen our sustainability commitments. Our roadmap includes:</p>
+    <ul>
+      <li>Measuring and publishing our carbon footprint annually, including Scope 3 emissions from our supply chain</li>
+      <li>Exploring carbon offset programmes for residual emissions that cannot be eliminated</li>
+      <li>Partnering with environmental organisations aligned with education and digital access</li>
+      <li>Advocating within the EdTech sector for greener standards in AI usage and digital infrastructure</li>
+    </ul>
+    <p>We recognise that sustainability is a journey, not a destination. We will be honest about where we fall short and transparent about our progress.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>Contact</h2>
+    <p>If you have questions about our sustainability commitments, would like data on environmental savings for your school's reporting, or wish to discuss a partnership, please get in touch:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a></li>
+      <li><strong>Website:</strong> <a href="https://www.flashdeck.ai">www.flashdeck.ai</a></li>
+    </ul>
+  </div>
+
+  <div class="contact-box">
+    <h3>Want sustainability data for your school?</h3>
+    <p>We can provide estimated paper and carbon savings for your school's environmental reporting. Just ask.</p>
+    <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 FlashDeck.AI. All rights reserved. &nbsp;|&nbsp;
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms &amp; Conditions</a>
+    <a href="/sustainability.html">Sustainability</a>
+    <a href="/">Home</a>
+  </p>
+</footer>
+
+</body>
+</html>
