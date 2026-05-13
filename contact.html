@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — FlashDeck.AI</title>
+  <meta name="description" content="Get in touch with the FlashDeck.AI team — for general enquiries, support, school partnerships, or press." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #0f172a; overflow-x: hidden; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+
+    :root {
+      --navy: #0f2a4a;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-50: #eff6ff;
+      --green-500: #22c55e;
+      --green-50: #f0fdf4;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border: rgba(15,23,42,0.08);
+      --border-strong: rgba(15,23,42,0.14);
+      --shadow-sm: 0 1px 3px rgba(15,23,42,0.08);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+      --shadow-lg: 0 12px 40px rgba(15,23,42,0.1);
+      --shadow-blue: 0 8px 30px rgba(37,99,235,0.25);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
+    .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #2563eb, #22d3ee); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .logo span { color: var(--blue-400); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue-600); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-blue); font-family: 'Inter', sans-serif; }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--text-primary); font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: 10px; border: 1px solid var(--border-strong); cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-secondary:hover { background: #f8fafc; color: var(--blue-600); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+
+    /* HERO */
+    .contact-hero { background: linear-gradient(135deg, var(--navy) 0%, #1e3a5f 100%); padding: 120px 0 60px; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,0.2); border: 1px solid rgba(59,130,246,0.4); color: #93c5fd; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .contact-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: white; margin-bottom: 1rem; }
+    .contact-hero p { color: #94a3b8; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* LAYOUT */
+    .contact-layout { max-width: 1000px; margin: 0 auto; padding: 4rem 24px 5rem; display: grid; grid-template-columns: 1fr 1.6fr; gap: 3rem; align-items: start; }
+
+    /* CONTACT INFO */
+    .contact-info h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem; }
+    .contact-methods { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem; }
+    .contact-method { display: flex; align-items: flex-start; gap: 1rem; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+    .contact-method-icon { width: 40px; height: 40px; background: var(--blue-50); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .contact-method-text h4 { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.2rem; }
+    .contact-method-text p { font-size: 0.85rem; color: var(--text-muted); }
+    .contact-method-text a { color: var(--blue-600); font-size: 0.9rem; font-weight: 500; }
+
+    .enquiry-types h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; }
+    .enquiry-type-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .enquiry-type { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--text-secondary); }
+    .enquiry-type .dot { width: 6px; height: 6px; background: var(--blue-500); border-radius: 50%; flex-shrink: 0; }
+
+    /* FORM */
+    .form-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; box-shadow: var(--shadow-lg); }
+    .form-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
+    .form-label .req { color: var(--blue-600); }
+    .form-input, .form-select, .form-textarea { padding: 0.7rem 1rem; border: 1.5px solid var(--border-strong); border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; color: var(--text-primary); background: white; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit { width: 100%; padding: 14px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-weight: 700; font-size: 1rem; border: none; border-radius: 10px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; box-shadow: var(--shadow-blue); margin-top: 0.5rem; }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,99,235,0.35); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-note { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
+    .form-note a { color: var(--blue-600); }
+    .success-msg { display: none; background: var(--green-50); border: 1px solid rgba(22,163,74,0.3); border-radius: 12px; padding: 1.5rem; text-align: center; }
+    .success-msg h3 { font-weight: 700; color: #16a34a; margin-bottom: 0.5rem; }
+    .success-msg p { font-size: 0.9rem; color: var(--text-secondary); }
+    .error-msg { display: none; background: #fef2f2; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.9rem; color: #dc2626; margin-bottom: 1rem; }
+
+    /* FOOTER */
+    footer { background: var(--navy); color: #64748b; padding: 1.5rem 0; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: 0.85rem; }
+    .footer-legal { display: flex; gap: 1.5rem; }
+    .footer-legal a { font-size: 0.85rem; color: #64748b; transition: color 0.2s; }
+    .footer-legal a:hover { color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 1.5rem; z-index: 999; flex-direction: column; gap: 1rem; box-shadow: var(--shadow-md); }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1rem; font-weight: 500; color: var(--text-secondary); padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .mobile-nav a:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">🃏</div>
+        Flash<span>Deck</span>.AI
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#how-it-works">How It Works</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/schools.html">For Schools</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="/login.html" class="btn-secondary">Log In</a>
+        <a href="/signup.html" class="btn-primary">Start Free</a>
+      </div>
+      <div class="hamburger" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/">Home</a>
+  <a href="/#how-it-works">How It Works</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/schools.html">For Schools</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/login.html">Log In</a>
+  <a href="/signup.html">Sign Up Free</a>
+</div>
+
+<!-- HERO -->
+<div class="contact-hero">
+  <div class="container">
+    <div class="hero-badge">✉️ Get in Touch</div>
+    <h1>Contact FlashDeck.AI</h1>
+    <p>Whether you're a student, teacher, school leader, or journalist — we'd love to hear from you. We respond to all enquiries within 2 working days.</p>
+  </div>
+</div>
+
+<!-- CONTACT LAYOUT -->
+<div class="contact-layout">
+
+  <!-- LEFT: Contact info -->
+  <div class="contact-info">
+    <h2>How to reach us</h2>
+    <div class="contact-methods">
+      <div class="contact-method">
+        <div class="contact-method-icon">✉️</div>
+        <div class="contact-method-text">
+          <h4>Email</h4>
+          <p>For all general enquiries</p>
+          <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a>
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-method-icon">🏫</div>
+        <div class="contact-method-text">
+          <h4>School Partnerships</h4>
+          <p>Pilot programmes &amp; school pricing</p>
+          <a href="/schools.html">Visit our Schools page →</a>
+        </div>
+      </div>
+      <div class="contact-method">
+        <div class="contact-method-icon">🌐</div>
+        <div class="contact-method-text">
+          <h4>Website</h4>
+          <p><a href="https://www.flashdeck.ai">www.flashdeck.ai</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="enquiry-types">
+      <h3>We can help with:</h3>
+      <div class="enquiry-type-list">
+        <div class="enquiry-type"><span class="dot"></span>General questions about FlashDeck</div>
+        <div class="enquiry-type"><span class="dot"></span>Account and billing support</div>
+        <div class="enquiry-type"><span class="dot"></span>School pilot and partnership enquiries</div>
+        <div class="enquiry-type"><span class="dot"></span>Press and media requests</div>
+        <div class="enquiry-type"><span class="dot"></span>Privacy and data requests (GDPR)</div>
+        <div class="enquiry-type"><span class="dot"></span>Bug reports and technical issues</div>
+        <div class="enquiry-type"><span class="dot"></span>Feature suggestions and feedback</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Form -->
+  <div class="form-card">
+    <h2>Send us a message</h2>
+
+    <div class="success-msg" id="successMsg">
+      <h3>✅ Message received!</h3>
+      <p>Thanks for getting in touch. We'll respond within 2 working days.</p>
+    </div>
+    <div class="error-msg" id="errorMsg"></div>
+
+    <form id="contactForm" action="https://formspree.io/f/xeendvwe" method="POST" novalidate>
+      <input type="text" name="_gotcha" style="display:none" />
+      <input type="hidden" name="_subject" value="FlashDeck.AI Contact Enquiry" />
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="firstName">First Name <span class="req">*</span></label>
+          <input type="text" id="firstName" name="first_name" class="form-input" placeholder="Jane" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lastName">Last Name <span class="req">*</span></label>
+          <input type="text" id="lastName" name="last_name" class="form-input" placeholder="Smith" required />
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="jane@example.com" required />
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="enquiryType">Enquiry Type</label>
+          <select id="enquiryType" name="enquiry_type" class="form-select">
+            <option value="">Select a topic…</option>
+            <option>General Question</option>
+            <option>Account / Billing Support</option>
+            <option>School Partnership / Pilot</option>
+            <option>Press / Media</option>
+            <option>Privacy / Data Request</option>
+            <option>Bug Report / Technical Issue</option>
+            <option>Feature Suggestion</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="message">Message <span class="req">*</span></label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help…" required></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+      <p class="form-note">By submitting this form you agree to our <a href="/privacy.html">Privacy Policy</a>.</p>
+    </form>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 FlashDeck.AI. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms &amp; Conditions</a>
+        <a href="/sustainability.html">🌱 Sustainability</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) { field.style.borderColor = '#ef4444'; valid = false; }
+      else { field.style.borderColor = ''; }
+    });
+    if (!valid) {
+      errorMsg.style.display = 'block';
+      errorMsg.textContent = 'Please fill in all required fields.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errorMsg.style.display = 'none';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else { throw new Error(); }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+      errorMsg.style.display = 'block';
+      errorMsg.innerHTML = 'Something went wrong. Please email us directly at <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a>.';
+    }
+  });
+
+  document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => {
+    el.addEventListener('input', () => { el.style.borderColor = ''; });
+  });
+</script>
+
+</body>
+</html>

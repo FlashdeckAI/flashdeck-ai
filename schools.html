@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlashDeck for Schools — AI Revision for Your Students</title>
+  <meta name="description" content="Bring AI-powered revision to your school. FlashDeck generates exam-board-aligned flashcards instantly for GCSE, IGCSE and A Level students. Free 6-week pilot available." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #0f172a; overflow-x: hidden; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    :root {
+      --navy: #0f2a4a;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --blue-400: #60a5fa;
+      --blue-50: #eff6ff;
+      --green-600: #16a34a;
+      --green-500: #22c55e;
+      --green-50: #f0fdf4;
+      --amber-500: #f59e0b;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --surface-1: #ffffff;
+      --surface-2: #f8fafc;
+      --border: rgba(15,23,42,0.08);
+      --border-strong: rgba(15,23,42,0.14);
+      --shadow-sm: 0 1px 3px rgba(15,23,42,0.08);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+      --shadow-lg: 0 12px 40px rgba(15,23,42,0.1);
+      --shadow-blue: 0 8px 30px rgba(37,99,235,0.25);
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 16px 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
+    .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #2563eb, #22d3ee); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .logo span { color: var(--blue-400); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue-600); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-blue); font-family: 'Inter', sans-serif; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,99,235,0.35); }
+    .btn-primary-lg { font-size: 1rem; padding: 14px 28px; }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--text-primary); font-weight: 600; font-size: 0.9rem; padding: 10px 20px; border-radius: 10px; border: 1px solid var(--border-strong); cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-secondary:hover { background: var(--surface-2); border-color: var(--blue-500); color: var(--blue-600); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text-muted); border-radius: 2px; }
+
+    /* ---- HERO ---- */
+    .schools-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 60%, #1e4976 100%);
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .schools-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(6,182,212,0.1) 0%, transparent 40%);
+    }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,0.2); border: 1px solid rgba(59,130,246,0.4); color: #93c5fd; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.2rem, 4.5vw, 3.4rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 20px; }
+    .hero-title .highlight { color: #60a5fa; }
+    .hero-subtitle { font-size: 1.1rem; color: #94a3b8; line-height: 1.75; margin-bottom: 32px; }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-white { display: inline-flex; align-items: center; gap: 8px; background: white; color: var(--navy); font-weight: 700; font-size: 1rem; padding: 14px 28px; border-radius: 10px; border: none; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .btn-outline-white { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: white; font-weight: 600; font-size: 1rem; padding: 14px 28px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
+
+    /* Hero right — pilot card */
+    .pilot-card { background: rgba(255,255,255,0.07); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 2rem; }
+    .pilot-card-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 1.25rem; }
+    .pilot-features { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .pilot-feature { display: flex; align-items: center; gap: 0.75rem; color: #e2e8f0; font-size: 0.95rem; }
+    .pilot-feature .check { width: 22px; height: 22px; background: var(--green-500); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+    .pilot-highlight { background: rgba(37,99,235,0.25); border: 1px solid rgba(59,130,246,0.3); border-radius: 10px; padding: 1rem; text-align: center; }
+    .pilot-highlight .big { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; color: white; }
+    .pilot-highlight .small { color: #93c5fd; font-size: 0.85rem; margin-top: 0.25rem; }
+
+    /* ---- TRUST STRIP ---- */
+    .trust-strip { background: var(--surface-2); border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .trust-inner { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+    .trust-item .icon { font-size: 1.1rem; }
+
+    /* ---- SECTION BASE ---- */
+    section { padding: 80px 0; }
+    .section-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-50); border: 1px solid rgba(37,99,235,0.2); color: var(--blue-600); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .section-tag .dot { width: 6px; height: 6px; background: var(--blue-600); border-radius: 50%; }
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: 16px; }
+    .section-subtitle { font-size: 1.05rem; color: var(--text-secondary); max-width: 600px; line-height: 1.7; margin-bottom: 56px; }
+    .text-center { text-align: center; }
+    .text-center .section-subtitle { margin-left: auto; margin-right: auto; }
+
+    /* ---- HOW IT WORKS ---- */
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .step-card { text-align: center; padding: 1.5rem; }
+    .step-num { width: 48px; height: 48px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; margin: 0 auto 1rem; }
+    .step-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .step-title { font-weight: 700; font-size: 1rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .step-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ---- VALUE PROPS ---- */
+    .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .value-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; box-shadow: var(--shadow-sm); transition: all 0.2s; }
+    .value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .value-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .value-title { font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .value-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ---- STATS ---- */
+    .stats-section { background: linear-gradient(135deg, var(--navy), #1a3a5c); padding: 60px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+    .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; }
+    .stat-label { color: #94a3b8; font-size: 0.9rem; margin-top: 0.25rem; }
+
+    /* ---- PRICING ---- */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .pricing-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-sm); position: relative; }
+    .pricing-card.popular { border-color: var(--blue-500); box-shadow: 0 0 0 2px rgba(37,99,235,0.2), var(--shadow-md); }
+    .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 14px; border-radius: 100px; white-space: nowrap; }
+    .pricing-tier { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue-600); margin-bottom: 0.5rem; }
+    .pricing-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .pricing-price { margin-bottom: 0.25rem; }
+    .pricing-price .amount { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--text-primary); }
+    .pricing-price .period { font-size: 0.9rem; color: var(--text-muted); }
+    .pricing-usd { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .pricing-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .pricing-features { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary); }
+    .pricing-features li .tick { color: var(--green-500); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .pricing-cta { display: block; text-align: center; padding: 12px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; }
+    .pricing-cta-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; box-shadow: var(--shadow-blue); }
+    .pricing-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,99,235,0.35); }
+    .pricing-cta-secondary { background: var(--surface-2); color: var(--text-primary); border: 1px solid var(--border-strong); }
+    .pricing-cta-secondary:hover { background: var(--blue-50); color: var(--blue-600); border-color: var(--blue-500); }
+    .pricing-note { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted); }
+    .pricing-note a { color: var(--blue-600); }
+
+    /* ---- PILOT SECTION ---- */
+    .pilot-section { background: var(--green-50); border-top: 1px solid rgba(22,163,74,0.15); border-bottom: 1px solid rgba(22,163,74,0.15); }
+    .pilot-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .pilot-details { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
+    .pilot-detail { display: flex; align-items: flex-start; gap: 1rem; }
+    .pilot-detail-icon { width: 40px; height: 40px; background: white; border: 1px solid rgba(22,163,74,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .pilot-detail-text h4 { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.2rem; }
+    .pilot-detail-text p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ---- ENQUIRY FORM ---- */
+    #enquiry { background: white; }
+    .form-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; box-shadow: var(--shadow-lg); max-width: 680px; margin: 0 auto; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
+    .form-label .req { color: var(--blue-600); }
+    .form-input, .form-select, .form-textarea {
+      padding: 0.7rem 1rem; border: 1.5px solid var(--border-strong); border-radius: 8px;
+      font-size: 0.95rem; font-family: 'Inter', sans-serif; color: var(--text-primary);
+      background: white; transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-submit { width: 100%; padding: 14px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; font-weight: 700; font-size: 1rem; border: none; border-radius: 10px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; box-shadow: var(--shadow-blue); margin-top: 0.5rem; }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,99,235,0.35); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-note { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
+    .form-note a { color: var(--blue-600); }
+    .success-msg { display: none; background: var(--green-50); border: 1px solid rgba(22,163,74,0.3); border-radius: 12px; padding: 1.5rem; text-align: center; }
+    .success-msg h3 { font-weight: 700; color: var(--green-600); margin-bottom: 0.5rem; }
+    .success-msg p { font-size: 0.9rem; color: var(--text-secondary); }
+    .error-msg { display: none; background: #fef2f2; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.9rem; color: #dc2626; margin-bottom: 1rem; }
+
+    /* ---- FAQ ---- */
+    .faq-section { background: var(--surface-2); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+    .faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .faq-q { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .faq-a { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ---- CTA STRIP ---- */
+    .cta-strip { background: linear-gradient(135deg, var(--navy), #1a3a5c); padding: 60px 0; text-align: center; }
+    .cta-strip h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: white; margin-bottom: 1rem; }
+    .cta-strip p { color: #94a3b8; font-size: 1rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* ---- FOOTER ---- */
+    footer { background: var(--navy); color: #64748b; padding: 2rem 0; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: 0.85rem; }
+    .footer-legal { display: flex; gap: 1.5rem; }
+    .footer-legal a { font-size: 0.85rem; color: #64748b; transition: color 0.2s; }
+    .footer-legal a:hover { color: white; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .pilot-card { display: none; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .value-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .pilot-inner { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .trust-inner { gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* Mobile nav */
+    .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 1.5rem; z-index: 999; flex-direction: column; gap: 1rem; box-shadow: var(--shadow-md); }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1rem; font-weight: 500; color: var(--text-secondary); padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .mobile-nav a:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">🃏</div>
+        Flash<span>Deck</span>.AI
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#how-it-works">How It Works</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/schools.html" class="active">For Schools</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="/login.html" class="btn-secondary">Log In</a>
+        <a href="/signup.html" class="btn-primary">Start Free</a>
+      </div>
+      <div class="hamburger" onclick="toggleMobileNav()" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="/">Home</a>
+  <a href="/#how-it-works">How It Works</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/schools.html">For Schools</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/login.html">Log In</a>
+  <a href="/signup.html">Sign Up Free</a>
+</div>
+
+<!-- HERO -->
+<section class="schools-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">🏫 For Schools &amp; Colleges</div>
+        <h1 class="hero-title">Give Every Student an <span class="highlight">AI Revision Tutor</span></h1>
+        <p class="hero-subtitle">FlashDeck generates exam-board-aligned flashcards instantly for GCSE, IGCSE, and A Level. Deployed across your school in minutes — no IT setup required.</p>
+        <div class="hero-cta">
+          <a href="#enquiry" class="btn-white">Apply for Free Pilot →</a>
+          <a href="#pricing" class="btn-outline-white">View School Pricing</a>
+        </div>
+      </div>
+      <div class="pilot-card">
+        <div class="pilot-card-title">🎁 Free 6-Week Pilot Includes:</div>
+        <div class="pilot-features">
+          <div class="pilot-feature"><div class="check">✓</div>Up to 60 students across 3 subjects</div>
+          <div class="pilot-feature"><div class="check">✓</div>Full Premium access — no restrictions</div>
+          <div class="pilot-feature"><div class="check">✓</div>Teacher dashboard &amp; progress reports</div>
+          <div class="pilot-feature"><div class="check">✓</div>AQA, Edexcel, Cambridge, OCR aligned</div>
+          <div class="pilot-feature"><div class="check">✓</div>Dedicated onboarding support</div>
+          <div class="pilot-feature"><div class="check">✓</div>No credit card required</div>
+        </div>
+        <div class="pilot-highlight">
+          <div class="big">£0</div>
+          <div class="small">For the full 6-week pilot · No commitment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item"><span class="icon">🔒</span> GDPR Compliant</div>
+      <div class="trust-item"><span class="icon">📋</span> DPA Available</div>
+      <div class="trust-item"><span class="icon">🌍</span> 140+ Countries</div>
+      <div class="trust-item"><span class="icon">⚡</span> No IT Setup Required</div>
+      <div class="trust-item"><span class="icon">🎓</span> GCSE · IGCSE · A Level</div>
+      <div class="trust-item"><span class="icon">🌱</span> Paper-Free Revision</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS FOR SCHOOLS -->
+<section>
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag"><span class="dot"></span>Simple Deployment</div>
+      <h2 class="section-title">Up and running in four steps</h2>
+      <p class="section-subtitle">No software to install. No IT department required. Students access FlashDeck through any browser on any device.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon">📝</div>
+        <div class="step-title">Apply for a Pilot</div>
+        <div class="step-desc">Complete the short enquiry form below. We'll respond within one working day to confirm your pilot details.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔑</div>
+        <div class="step-title">Receive Access Codes</div>
+        <div class="step-desc">We set up your school account and send you student access codes for your chosen subjects and year groups.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon">📚</div>
+        <div class="step-title">Students Start Revising</div>
+        <div class="step-desc">Students sign up with their school code, select their exam board and subjects, and begin generating flashcards immediately.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-icon">📊</div>
+        <div class="step-title">Track Progress</div>
+        <div class="step-desc">Your teacher dashboard shows engagement, mastery scores, and which topics students are focusing on — updated in real time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROPS -->
+<section style="background: var(--surface-2);">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag"><span class="dot"></span>Why Schools Choose FlashDeck</div>
+      <h2 class="section-title">Built for the classroom, loved by students</h2>
+      <p class="section-subtitle">FlashDeck is designed around how students actually revise — not how we think they should.</p>
+    </div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <div class="value-title">Exam-Board Aligned</div>
+        <div class="value-desc">Every flashcard is generated against the official specification for AQA, Edexcel, Cambridge IGCSE, OCR, and more. No off-syllabus content.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Instant Generation</div>
+        <div class="value-desc">Students type a topic and receive a full deck of revision cards in seconds. No waiting, no manual creation — just immediate, structured revision.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📱</div>
+        <div class="value-title">Any Device, Any Time</div>
+        <div class="value-desc">Works on phones, tablets, Chromebooks, and laptops. Students can revise at home, on the bus, or in a free period — no app download required.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🧠</div>
+        <div class="value-title">Spaced Repetition</div>
+        <div class="value-desc">FlashDeck uses proven spaced repetition science to surface the cards students need to see most — maximising retention in the time available before exams.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📊</div>
+        <div class="value-title">Teacher Visibility</div>
+        <div class="value-desc">See which students are engaging, which topics they're struggling with, and who needs a nudge — all from a simple, clean dashboard.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌱</div>
+        <div class="value-title">Sustainable</div>
+        <div class="value-desc">Replace printed revision guides and index cards with a digital-first platform. Reduce paper waste and stationery costs across your school simultaneously.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">140+</div>
+        <div class="stat-label">Countries using FlashDeck</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Exam boards supported</div>
+      </div>
+      <div>
+        <div class="stat-num">6 weeks</div>
+        <div class="stat-label">Free pilot for your school</div>
+      </div>
+      <div>
+        <div class="stat-num">£0</div>
+        <div class="stat-label">Cost to start your pilot</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag"><span class="dot"></span>School Pricing</div>
+      <h2 class="section-title">Simple, transparent annual pricing</h2>
+      <p class="section-subtitle">All plans include unlimited flashcard generation, teacher dashboard, and priority support. Billed annually.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name">Starter School</div>
+        <div class="pricing-price"><span class="amount">£499</span><span class="period">/year</span></div>
+        <div class="pricing-usd">~$630/year</div>
+        <div class="pricing-desc">Ideal for a single department or year group trialling AI revision across a small cohort.</div>
+        <ul class="pricing-features">
+          <li><span class="tick">✓</span>Up to 100 student accounts</li>
+          <li><span class="tick">✓</span>Up to 5 subjects</li>
+          <li><span class="tick">✓</span>Teacher dashboard</li>
+          <li><span class="tick">✓</span>All exam boards</li>
+          <li><span class="tick">✓</span>Email support</li>
+          <li><span class="tick">✓</span>Unlimited flashcard generation</li>
+        </ul>
+        <a href="#enquiry" class="pricing-cta pricing-cta-secondary">Enquire Now</a>
+      </div>
+
+      <div class="pricing-card popular">
+        <div class="popular-badge">Most Popular</div>
+        <div class="pricing-tier">Growth</div>
+        <div class="pricing-name">Growth School</div>
+        <div class="pricing-price"><span class="amount">£999</span><span class="period">/year</span></div>
+        <div class="pricing-usd">~$1,260/year</div>
+        <div class="pricing-desc">For schools deploying FlashDeck across multiple year groups and departments.</div>
+        <ul class="pricing-features">
+          <li><span class="tick">✓</span>Up to 300 student accounts</li>
+          <li><span class="tick">✓</span>Unlimited subjects</li>
+          <li><span class="tick">✓</span>Teacher &amp; HOD dashboards</li>
+          <li><span class="tick">✓</span>All exam boards</li>
+          <li><span class="tick">✓</span>Priority email &amp; chat support</li>
+          <li><span class="tick">✓</span>Unlimited flashcard generation</li>
+          <li><span class="tick">✓</span>Parent progress reports</li>
+        </ul>
+        <a href="#enquiry" class="pricing-cta pricing-cta-primary">Enquire Now</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Whole School</div>
+        <div class="pricing-name">Whole School</div>
+        <div class="pricing-price"><span class="amount">£1,999</span><span class="period">/year</span></div>
+        <div class="pricing-usd">~$2,520/year</div>
+        <div class="pricing-desc">Full school deployment with dedicated onboarding, training, and account management.</div>
+        <ul class="pricing-features">
+          <li><span class="tick">✓</span>Unlimited student accounts</li>
+          <li><span class="tick">✓</span>Unlimited subjects</li>
+          <li><span class="tick">✓</span>All dashboard tiers</li>
+          <li><span class="tick">✓</span>All exam boards</li>
+          <li><span class="tick">✓</span>Dedicated account manager</li>
+          <li><span class="tick">✓</span>Staff training session</li>
+          <li><span class="tick">✓</span>Custom onboarding</li>
+          <li><span class="tick">✓</span>Data Processing Agreement (DPA)</li>
+        </ul>
+        <a href="#enquiry" class="pricing-cta pricing-cta-secondary">Enquire Now</a>
+      </div>
+
+    </div>
+    <p class="pricing-note">All plans include a <strong>free 6-week pilot</strong> before any commitment. Prices exclude VAT. <a href="/contact.html">Contact us</a> for multi-school or MAT pricing.</p>
+  </div>
+</section>
+
+<!-- PILOT DETAILS -->
+<section class="pilot-section">
+  <div class="container">
+    <div class="pilot-inner">
+      <div>
+        <div class="section-tag" style="background: #f0fdf4; border-color: rgba(22,163,74,0.2); color: #16a34a;"><span class="dot" style="background:#16a34a;"></span>Free Pilot Programme</div>
+        <h2 class="section-title">Try before you commit — completely free</h2>
+        <p style="font-size:1rem; color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.7;">We know schools need to see results before making a purchasing decision. That's why every school gets a full 6-week pilot at no cost, with no obligation to continue.</p>
+        <div class="pilot-details">
+          <div class="pilot-detail">
+            <div class="pilot-detail-icon">👥</div>
+            <div class="pilot-detail-text">
+              <h4>Up to 60 students</h4>
+              <p>Across up to 3 subjects — enough to run a meaningful trial with a real year group.</p>
+            </div>
+          </div>
+          <div class="pilot-detail">
+            <div class="pilot-detail-icon">⏱️</div>
+            <div class="pilot-detail-text">
+              <h4>6 weeks, full access</h4>
+              <p>Students get the full Premium experience — no feature restrictions during the pilot.</p>
+            </div>
+          </div>
+          <div class="pilot-detail">
+            <div class="pilot-detail-icon">📋</div>
+            <div class="pilot-detail-text">
+              <h4>End-of-pilot report</h4>
+              <p>We'll provide a usage and engagement report at the end of the pilot to help you make the case internally.</p>
+            </div>
+          </div>
+          <div class="pilot-detail">
+            <div class="pilot-detail-icon">🤝</div>
+            <div class="pilot-detail-text">
+              <h4>No credit card required</h4>
+              <p>The pilot is completely free. We'll only discuss pricing if you decide to continue after the 6 weeks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background:white; border-radius:16px; padding:2rem; border:1px solid rgba(22,163,74,0.2); box-shadow:var(--shadow-md);">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:1rem;">Pilot eligibility</h3>
+          <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1.25rem; line-height:1.65;">The pilot is available to secondary schools, sixth forms, colleges, and tuition centres offering GCSE, IGCSE, or A Level programmes. We welcome applications from schools in the UK and internationally.</p>
+          <div style="display:flex; flex-direction:column; gap:0.6rem; margin-bottom:1.5rem;">
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.9rem; color:var(--text-secondary);"><span style="color:var(--green-500); font-weight:700;">✓</span> UK secondary schools &amp; sixth forms</div>
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.9rem; color:var(--text-secondary);"><span style="color:var(--green-500); font-weight:700;">✓</span> International schools (IGCSE/A Level)</div>
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.9rem; color:var(--text-secondary);"><span style="color:var(--green-500); font-weight:700;">✓</span> Independent &amp; state schools</div>
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.9rem; color:var(--text-secondary);"><span style="color:var(--green-500); font-weight:700;">✓</span> Tuition centres &amp; tutoring companies</div>
+            <div style="display:flex; align-items:center; gap:0.6rem; font-size:0.9rem; color:var(--text-secondary);"><span style="color:var(--green-500); font-weight:700;">✓</span> Multi-Academy Trusts (MATs)</div>
+          </div>
+          <a href="#enquiry" class="btn-primary btn-primary-lg" style="width:100%; justify-content:center;">Apply for Pilot →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRY FORM -->
+<section id="enquiry">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag"><span class="dot"></span>Get Started</div>
+      <h2 class="section-title">Apply for your free pilot</h2>
+      <p class="section-subtitle">Complete the form below and we'll be in touch within one working day to confirm your pilot details.</p>
+    </div>
+
+    <div class="form-card">
+      <div class="success-msg" id="successMsg">
+        <h3>✅ Enquiry received!</h3>
+        <p>Thank you for your interest in FlashDeck for Schools. We'll be in touch within one working day to discuss your pilot.</p>
+      </div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again or email us at <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a>.</div>
+
+      <form id="schoolEnquiryForm" action="https://formspree.io/f/xbdwbqbq" method="POST" novalidate>
+        <!-- Honeypot -->
+        <input type="text" name="_gotcha" style="display:none" />
+        <input type="hidden" name="_subject" value="FlashDeck School Pilot Enquiry" />
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name <span class="req">*</span></label>
+            <input type="text" id="firstName" name="first_name" class="form-input" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name <span class="req">*</span></label>
+            <input type="text" id="lastName" name="last_name" class="form-input" placeholder="Smith" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">School Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="j.smith@school.ac.uk" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="role">Your Role <span class="req">*</span></label>
+            <select id="role" name="role" class="form-select" required>
+              <option value="">Select your role…</option>
+              <option>Head Teacher / Principal</option>
+              <option>Deputy Head</option>
+              <option>Head of Department</option>
+              <option>Subject Teacher</option>
+              <option>Head of Year</option>
+              <option>SENCO</option>
+              <option>IT / Digital Lead</option>
+              <option>Tuition Centre Owner</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="schoolName">School / Institution Name <span class="req">*</span></label>
+            <input type="text" id="schoolName" name="school_name" class="form-input" placeholder="e.g. Greenwood Academy" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="country">Country <span class="req">*</span></label>
+            <select id="country" name="country" class="form-select" required>
+              <option value="">Select country…</option>
+              <option>United Kingdom</option>
+              <option>Pakistan</option>
+              <option>Nigeria</option>
+              <option>United Arab Emirates</option>
+              <option>Saudi Arabia</option>
+              <option>Qatar</option>
+              <option>Kuwait</option>
+              <option>Bahrain</option>
+              <option>Oman</option>
+              <option>Egypt</option>
+              <option>Kenya</option>
+              <option>Ghana</option>
+              <option>South Africa</option>
+              <option>India</option>
+              <option>Bangladesh</option>
+              <option>Malaysia</option>
+              <option>Singapore</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="studentCount">Approximate Number of Students</label>
+            <select id="studentCount" name="student_count" class="form-select">
+              <option value="">Select range…</option>
+              <option>Under 100</option>
+              <option>100–300</option>
+              <option>300–600</option>
+              <option>600–1,000</option>
+              <option>Over 1,000</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="subjects">Subjects of Interest</label>
+            <input type="text" id="subjects" name="subjects" class="form-input" placeholder="e.g. Biology, History, Maths" />
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="message">Anything else you'd like us to know?</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us about your school, your students, or any specific requirements…"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">Send Pilot Enquiry →</button>
+        <p class="form-note">By submitting this form you agree to our <a href="/privacy.html">Privacy Policy</a>. We'll only use your details to respond to your enquiry.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag"><span class="dot"></span>Common Questions</div>
+      <h2 class="section-title">Frequently asked questions</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Is FlashDeck GDPR compliant?</div>
+        <div class="faq-a">Yes. FlashDeck is built with GDPR compliance at its core. We offer a Data Processing Agreement (DPA) for all school accounts. Student data is never sold or used for advertising.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does it require any IT setup?</div>
+        <div class="faq-a">No. FlashDeck runs entirely in the browser — no software to install, no firewall changes needed. Students access it on any device with an internet connection.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which exam boards are supported?</div>
+        <div class="faq-a">AQA, Edexcel, Cambridge IGCSE, OCR, WJEC, and more. We support all major UK and international exam boards for GCSE, IGCSE, and A Level.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can teachers control what students see?</div>
+        <div class="faq-a">Yes. Teachers can assign specific topics, set recommended decks, and monitor which content students are generating — all from the teacher dashboard.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens after the pilot?</div>
+        <div class="faq-a">At the end of the 6-week pilot, we'll share an engagement report and discuss whether a paid plan is right for your school. There's no obligation to continue.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a minimum commitment?</div>
+        <div class="faq-a">No minimum commitment for the pilot. Paid plans are billed annually. We also offer monthly billing for smaller institutions — ask us for details.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can we get a DPA before the pilot?</div>
+        <div class="faq-a">Absolutely. We can provide a Data Processing Agreement before the pilot begins. Email us at hello@flashdeck.ai and we'll send it over promptly.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you offer MAT or multi-school pricing?</div>
+        <div class="faq-a">Yes. We offer discounted pricing for Multi-Academy Trusts and groups of schools. Contact us to discuss a bespoke arrangement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="container">
+    <h2>Ready to bring AI revision to your school?</h2>
+    <p>Join schools across the UK and internationally already using FlashDeck to improve student outcomes.</p>
+    <a href="#enquiry" class="btn-white">Apply for Your Free Pilot →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 FlashDeck.AI. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms &amp; Conditions</a>
+        <a href="/sustainability.html">🌱 Sustainability</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  // Form submission via fetch (AJAX) to Formspree
+  document.getElementById('schoolEnquiryForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+
+    // Basic validation
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        field.style.borderColor = '#ef4444';
+        valid = false;
+      } else {
+        field.style.borderColor = '';
+      }
+    });
+    if (!valid) {
+      errorMsg.style.display = 'block';
+      errorMsg.textContent = 'Please fill in all required fields.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errorMsg.style.display = 'none';
+
+    try {
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Send Pilot Enquiry →';
+      errorMsg.style.display = 'block';
+      errorMsg.innerHTML = 'Something went wrong. Please try again or email us at <a href="mailto:hello@flashdeck.ai">hello@flashdeck.ai</a>.';
+    }
+  });
+
+  // Clear red borders on input
+  document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => {
+    el.addEventListener('input', () => { el.style.borderColor = ''; });
+  });
+</script>
+
+</body>
+</html>
