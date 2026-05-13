@@ -1,0 +1,107 @@
+flowchart TD
+    %% ENTRY POINT
+    A([User visits flashdeck.ai]) --> B{Has account?}
+    B -- Yes --> LGN[login.html]
+    B -- No --> SGN[signup.html]
+
+    %% SIGN-UP - WHO ARE YOU?
+    SGN --> WT{Who are you?}
+    WT -- Student --> SF[Student Registration Form]
+    WT -- Parent or Guardian --> PF1[Parent Registration\nStep 1: Account details]
+    WT -- Teacher or School --> SCH([Redirect to schools.html\nPilot interest form])
+
+    %% STUDENT REGISTRATION
+    SF --> SV{Validation\npassed?}
+    SV -- No --> SF
+    SV -- Yes --> SC[Supabase creates student account\nRole: student - Tier: free]
+    SC --> SE[Verification email sent\n24-hour link]
+    SE --> SH([Check your inbox screen])
+    SH --> SVC{Email\nverified?}
+    SVC -- No --> SRE[Resend verification email]
+    SRE --> SH
+    SVC -- Yes --> SD([Student Dashboard])
+
+    %% PARENT REGISTRATION - MULTI-STEP
+    PF1 --> PF2[Step 2: How many children?\nStepper 1 to 4\nPricing updates in real time]
+    PF2 --> PF3[Step 3: Child profiles\nFor each child:\nName, Year group, Board, Level, Email, Password]
+    PF3 --> PF4[Step 4: Plan selection\nMonthly or Annual\nStripe Checkout]
+    PF4 --> PPY{Payment\nsuccessful?}
+    PPY -- No --> PF4
+    PPY -- Yes --> PC[Supabase creates:\n1 parent account\nN child sub-accounts\nAll linked via parent_id]
+    PC --> PE[Verification email sent\nto parent email]
+    PE --> PVH([Check your inbox screen])
+    PVH --> PVC{Email\nverified?}
+    PVC -- No --> PRE[Resend verification email]
+    PRE --> PVH
+    PVC -- Yes --> PD([Parent Dashboard])
+    PD --> CD([Each child logs in to Student Dashboard])
+
+    %% LOGIN FLOW
+    LGN --> LM{Login method}
+    LM -- Email and password --> LF[Enter email and password]
+    LM -- Google OAuth --> GOA[Supabase Google provider]
+    LF --> LA{Auth valid?}
+    LA -- No --> LE[Error: incorrect email or password]
+    LE --> LF
+    LA -- Unverified --> LUV[Please verify your email\nResend link option]
+    LA -- Yes --> LR{Route by role}
+    GOA --> GFC{First time\nwith Google?}
+    GFC -- Yes --> GP[Complete your profile\nBoard, Level, Year group]
+    GP --> LR
+    GFC -- No --> LR
+
+    LR -- student or child --> SD
+    LR -- parent --> PD
+    LR -- teacher --> TD([Teacher Dashboard])
+    LR -- school admin --> SA([School Admin Dashboard])
+    LR -- super admin --> ADM([Super Admin Panel])
+
+    %% FORGOT PASSWORD
+    LGN --> FP[forgot-password.html]
+    FP --> FPE[Enter email address]
+    FPE --> FPS[Confirmation shown regardless\nof whether email exists\n1-hour reset link sent if found]
+    FPS --> FPR[reset-password.html\nEnter new password and confirm]
+    FPR --> FPD[Password updated\nRedirect to login page]
+
+    %% TEACHER / SCHOOL ADMIN - INVITE-ONLY
+    SCH --> SIF[School submits interest form\nFormspree - admin notified]
+    SIF --> ADR{Super admin\nreviews}
+    ADR -- Approved --> INV[Admin creates school record\nSends invite email\n48-hour time-limited link]
+    ADR -- Waitlisted --> WL[Holding email sent\nAdded to waitlist]
+    ADR -- Declined --> DCL[Polite decline email sent]
+    INV --> TRG[Teacher or School Admin\nclicks invite link]
+    TRG --> IEX{Link\nexpired?}
+    IEX -- Yes --> IEE[Error: link expired\nContact school admin or support]
+    IEX -- No --> IRF[Invite registration form\nEmail pre-filled, cannot be changed]
+    IRF --> IVC[Supabase creates account\nRole: teacher or school admin\nLinked to school_id]
+    IVC --> TD
+    IVC --> SA
+
+    %% INDIVIDUAL STUDENT UPGRADE PATH
+    SD --> UPG{Free tier\nlimit reached?}
+    UPG -- No --> SD
+    UPG -- Yes --> UPP[Upgrade prompt shown]
+    UPP --> UPM{Pay method}
+    UPM -- Pay myself age 18+ --> STC[Stripe Checkout\nIndividual Premium]
+    UPM -- Ask a parent --> APE[Enter parent email\nStripe Payment Link sent to parent]
+    APE --> PPL[Parent receives email\nClicks payment link\nStripe Checkout]
+    PPL --> UPA[Student account upgraded\nto Premium automatically]
+    STC --> UPA
+    UPA --> SD
+
+    %% STYLES
+    classDef page fill:#1d4ed8,stroke:#1e40af,color:#fff
+    classDef decision fill:#f59e0b,stroke:#d97706,color:#1a1a1a
+    classDef action fill:#f0f9ff,stroke:#93c5fd,color:#1e3a5f
+    classDef success fill:#16a34a,stroke:#15803d,color:#fff
+    classDef error fill:#ef4444,stroke:#dc2626,color:#fff
+    classDef school fill:#fce7f3,stroke:#db2777,color:#831843
+    classDef premium fill:#7c3aed,stroke:#6d28d9,color:#fff
+
+    class SD,PD,TD,SA,ADM,CD page
+    class B,WT,SV,SVC,PPY,PVC,LM,LA,LR,GFC,ADR,IEX,UPG,UPM decision
+    class SF,PF1,PF2,PF3,PF4,SC,SE,SH,SRE,PC,PE,PVH,PRE,LF,GOA,GP,FP,FPE,FPS,FPR,FPD,SIF,INV,WL,DCL,TRG,IRF,IVC,UPP,APE,PPL action
+    class UPA,FPD success
+    class LE,LUV,IEE error
+    class SCH,SIF,ADR,INV,WL,DCL,TRG,IEX,IEE,IRF,IVC school
+    class UPP,STC,APE,PPL,UPA premium
