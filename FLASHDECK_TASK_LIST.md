@@ -1,6 +1,6 @@
 # FlashDeck.AI — Master Task List
 
-> Last updated: 13 May 2026  
+> Last updated: 14 May 2026  
 > Legend: ✅ Done · 🔄 In Progress · ⬜ To Do · 🔒 Blocked (dependency)
 
 ---
@@ -34,12 +34,12 @@
 | 2.6 | Vercel deployment — flashdeck-ai | ✅ Done | Auto-deploys on every GitHub push |
 | 2.7 | Custom domain connected — flashdeck.ai | ✅ Done | Live at https://www.flashdeck.ai |
 | 2.8 | SSL certificate | ✅ Done | Auto-provisioned by Vercel |
-| 2.9 | Supabase project setup | ⬜ To Do | Create project, get API keys |
+| 2.9 | Supabase project setup | ✅ Done | Project ID: ryatewrjstploeahcpbe — credentials received |
 | 2.10 | Supabase database schema | ⬜ To Do | Users, decks, cards, topic bank, schools tables |
 | 2.11 | Anthropic (Claude) API account | 🔄 In Progress | Subscription pending |
 | 2.12 | Stripe account setup | ⬜ To Do | For $7/month individual + school licences |
-| 2.13 | Environment variables in Vercel | 🔒 Blocked | Needs Supabase + Stripe + Claude keys first |
-| 2.14 | Email provider setup (transactional) | ⬜ To Do | For verification, reminders, pilot invites (Resend or SendGrid) |
+| 2.13 | Environment variables in Vercel | ✅ Done | config.js deployed with Supabase URL + Anon Key |
+| 2.14 | Email provider setup (transactional) | ✅ Done | Resend configured as SMTP in Supabase — flashdeck.ai domain verified |
 
 ---
 
@@ -90,11 +90,11 @@
 
 | # | Task | Status | Notes |
 |---|---|---|---|
-| 4.1 | Supabase email/password sign-up | ⬜ To Do | Wire up Sign Up page to Supabase |
-| 4.2 | Email verification flow | ⬜ To Do | Confirmation email + redirect |
-| 4.3 | Google OAuth sign-in | ⬜ To Do | Supabase Google provider config |
-| 4.4 | Log In flow | ⬜ To Do | Wire up Log In page to Supabase |
-| 4.5 | Forgot password / reset flow | ⬜ To Do | Email reset link via Supabase |
+| 4.1 | Supabase email/password sign-up | ✅ Done | signup.html wired to Supabase via config.js |
+| 4.2 | Email verification flow | ✅ Done | Supabase sends verification email via Resend; post-verify redirect to dashboard.html |
+| 4.3 | Google OAuth sign-in | ✅ Done | Google provider enabled in Supabase; OAuth buttons wired in login.html and signup.html |
+| 4.4 | Log In flow | ✅ Done | login.html wired to Supabase signInWithPassword + role-based routing |
+| 4.5 | Forgot password / reset flow | ✅ Done | forgot-password.html + reset-password.html built and wired to Supabase resetPasswordForEmail |
 | 4.6 | Session persistence (30-day) | ⬜ To Do | "Keep me logged in" checkbox |
 | 4.7 | Protected routes (redirect if not logged in) | ⬜ To Do | Dashboard, Generate, Study all require auth |
 | 4.8 | School class code registration | ⬜ To Do | Students join school account via code |
@@ -207,10 +207,10 @@
 | Category | Done | In Progress | To Do | Total |
 |---|---|---|---|---|
 | Business & Strategy | 6 | 0 | 4 | 10 |
-| Infrastructure & DevOps | 8 | 1 | 5 | 14 |
+| Infrastructure & DevOps | 11 | 1 | 2 | 14 |
 | Marketing Website | 18 | 0 | 3 | 21 |
 | Presentations & Version Control | 5 | 0 | 3 | 8 |
-| Authentication | 0 | 0 | 8 | 8 |
+| Authentication | 5 | 0 | 3 | 8 |
 | Dashboard & Core UI | 0 | 0 | 10 | 10 |
 | AI & Topic Bank | 0 | 1 | 7 | 8 |
 | Spaced Repetition | 0 | 0 | 5 | 5 |
@@ -218,4 +218,4 @@
 | Teacher & School Features | 0 | 0 | 5 | 5 |
 | Compliance & Legal | 2 | 0 | 4 | 6 |
 | Testing & Launch | 0 | 0 | 6 | 6 |
-| **Total** | **41** | **2** | **68** | **111** |
+| **Total** | **49** | **2** | **60** | **111** |
