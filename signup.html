@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Create your free FlashDeck.AI account — AI-powered flashcards for GCSE, IGCSE and A Level. 100 free cards every month, no credit card required." />
-  <title>Sign Up Free — FlashDeck.AI</title>
+  <meta name="description" content="Create your free FlashDeck.AI account -- AI-powered flashcards for GCSE, IGCSE and A Level. 100 free cards every month, no credit card required." />
+  <title>Sign Up Free -- FlashDeck.AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -505,7 +505,7 @@
       spn.style.display = 'block';
       var email = document.getElementById('sEmail').value.trim();
 
-      /* ── Supabase sign-up (wire when keys available) ──────────────────────
+      /* -- Supabase sign-up (wire when keys available) ----------------------
       getSupabase().auth.signUp({
         email: email,
         password: document.getElementById('sPassword').value,
@@ -527,6 +527,10 @@
         txt.textContent = 'Create Free Account';
         spn.style.display = 'none';
       });
+      -- end Supabase stub */
+
+      // TODO: Remove placeholder below once Supabase is wired
+      showVerifyScreen(email);
 
     });
 
