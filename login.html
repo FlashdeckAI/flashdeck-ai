@@ -475,10 +475,15 @@
   </div>
 
   <script>
-    const supabase = window.supabase.createClient(
-      window.FLASHDECK_CONFIG.SUPABASE_URL,
-      window.FLASHDECK_CONFIG.SUPABASE_ANON
-    );
+    function getSupabase() {
+      if (!window.FLASHDECK_CONFIG) {
+        throw new Error('FlashDeck configuration not loaded. Please try again or contact support@flashdeck.ai');
+      }
+      return window.supabase.createClient(
+        window.FLASHDECK_CONFIG.SUPABASE_URL,
+        window.FLASHDECK_CONFIG.SUPABASE_ANON
+      );
+    }
     const EMAIL_RE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
 
     // ── Role-based routing after successful login ──────────────────────────
@@ -502,7 +507,7 @@
       var btn = document.querySelector('.btn-google');
       btn.textContent = 'Redirecting to Google\u2026';
       btn.disabled = true;
-      supabase.auth.signInWithOAuth({
+      getSupabase().auth.signInWithOAuth({
         provider: 'google',
         options: { redirectTo: window.location.origin + '/dashboard.html' }
       }).catch(function(err) {
@@ -548,7 +553,7 @@
       txt.textContent = 'Logging in\u2026';
       btn.disabled = true;
 
-      supabase.auth.signInWithPassword({ email: email, password: password })
+      getSupabase().auth.signInWithPassword({ email: email, password: password })
         .then(function(res) {
           if (res.error) {
             if (res.error.message === 'Email not confirmed') {

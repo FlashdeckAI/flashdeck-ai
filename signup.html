@@ -388,10 +388,15 @@
   </main>
 
   <script>
-    const supabase = window.supabase.createClient(
-      window.FLASHDECK_CONFIG.SUPABASE_URL,
-      window.FLASHDECK_CONFIG.SUPABASE_ANON
-    );
+    function getSupabase() {
+      if (!window.FLASHDECK_CONFIG) {
+        throw new Error('FlashDeck configuration not loaded. Please try again or contact support@flashdeck.ai');
+      }
+      return window.supabase.createClient(
+        window.FLASHDECK_CONFIG.SUPABASE_URL,
+        window.FLASHDECK_CONFIG.SUPABASE_ANON
+      );
+    }
     const EMAIL_RE = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
 
     function selectType(type) {
@@ -501,7 +506,7 @@
       var email = document.getElementById('sEmail').value.trim();
 
       /* ── Supabase sign-up (wire when keys available) ──────────────────────
-      supabase.auth.signUp({
+      getSupabase().auth.signUp({
         email: email,
         password: document.getElementById('sPassword').value,
         options: { data: {
@@ -536,7 +541,7 @@
       var btn = document.getElementById('btnResend');
       btn.disabled = true;
       btn.textContent = 'Sending\u2026';
-      supabase.auth.resend({ type: 'signup', email: window._verifyEmail })
+      getSupabase().auth.resend({ type: 'signup', email: window._verifyEmail })
         .then(function() {
           btn.textContent = 'Sent! Check your inbox.';
           setTimeout(function() { btn.disabled = false; btn.textContent = 'Resend verification email'; }, 5000);
@@ -544,7 +549,7 @@
     }
 
     function handleGoogleSignup() {
-      supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/dashboard.html' } });
+      getSupabase().auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/dashboard.html' } });
     }
 
     // Inline blur validation
