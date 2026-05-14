@@ -246,3 +246,58 @@ Once all three services are set up, please provide the following to the develope
 If anything is unclear during setup, contact the developer before proceeding — it is better to ask than to create duplicate projects or misconfigure settings that are difficult to undo.
 
 All credentials should be shared via a secure channel. Do not send API keys or secrets in plain-text email or WhatsApp messages.
+
+---
+
+## Additional Task — Deploy `config.js` to Vercel
+
+This task is required **after** the Supabase credentials have been confirmed and **before** testing the live login/registration pages.
+
+### Why this is needed
+
+For security reasons, the Supabase credentials are **not stored in the GitHub repository**. Instead, they are held in a file called `config.js` which must be uploaded directly to the Vercel deployment. This prevents API keys from being publicly visible in the GitHub codebase.
+
+### Steps
+
+**1. Obtain the `config.js` file from the developer**
+
+The developer will provide a file named `config.js` containing the following content (with the real credentials filled in):
+
+```js
+window.FLASHDECK_CONFIG = {
+  SUPABASE_URL:  'https://[project-id].supabase.co',
+  SUPABASE_ANON: '[supabase-anon-key]'
+};
+```
+
+**2. Log in to Vercel**
+
+Go to [https://vercel.com](https://vercel.com) and log in using the FlashDeck account.
+
+**3. Navigate to the FlashDeck project**
+
+Click on the `flashdeck-ai` project from the dashboard.
+
+**4. Go to Settings → Environment Variables**
+
+In the left sidebar, click **Settings**, then **Environment Variables**. However, for a static HTML site, environment variables alone are not sufficient — the `config.js` file must be placed in the project root so it is served as a static asset.
+
+**5. Add `config.js` to the repository root via Vercel's file override**
+
+Since the site is a static HTML project deployed from GitHub, the simplest method is:
+
+- Ask the developer to provide the `config.js` file
+- In the Vercel dashboard for the project, go to **Deployments**
+- The developer will push a deployment that includes the `config.js` file via a **separate private repository or direct Vercel upload** — the support team does not need to handle the file upload directly
+
+> **Note:** The developer will handle the actual file placement. The support team's role here is to confirm that the Supabase credentials are correct and to notify the developer once all three services (Supabase, Resend, Google OAuth) are fully configured, so the developer can prepare and deploy the `config.js` file.
+
+### What the support team needs to do
+
+1. Complete all three service setups (Supabase, Resend, Google OAuth) as described above
+2. Pass the credentials back to the developer securely
+3. Notify the developer that setup is complete — the developer will then deploy `config.js` and confirm that login/registration is live
+
+---
+
+> **Security reminder:** The `config.js` file contains live API keys. It must never be sent over WhatsApp, email, or any unencrypted channel. Use a shared password manager or encrypted note.
