@@ -505,7 +505,6 @@
       spn.style.display = 'block';
       var email = document.getElementById('sEmail').value.trim();
 
-      /* -- Supabase sign-up (wire when keys available) ----------------------
       getSupabase().auth.signUp({
         email: email,
         password: document.getElementById('sPassword').value,
@@ -527,10 +526,7 @@
         txt.textContent = 'Create Free Account';
         spn.style.display = 'none';
       });
-      -- end Supabase stub */
 
-      // TODO: Remove placeholder below once Supabase is wired
-      showVerifyScreen(email);
 
     });
 
