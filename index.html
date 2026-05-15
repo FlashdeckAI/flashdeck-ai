@@ -1102,6 +1102,18 @@
       background: none; border: none;
     }
   </style>
+  <!-- Auth redirect handler: catches Supabase recovery/confirmation tokens in the URL hash -->
+  <script>
+    (function() {
+      var hash = window.location.hash;
+      if (hash && hash.indexOf('type=recovery') !== -1) {
+        window.location.replace('/reset-password.html' + hash);
+      } else if (hash && hash.indexOf('type=signup') !== -1) {
+        // Email confirmation link - redirect to login with a success message
+        window.location.replace('/login.html?verified=1');
+      }
+    })();
+  </script>
 </head>
 <body>
 
