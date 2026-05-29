@@ -1579,8 +1579,8 @@
   <div class="container">
     <div style="text-align:center">
       <div class="section-tag"><span class="dot"></span> Pricing</div>
-      <h2 class="section-title">Simple, honest pricing.<br /><span class="gradient-text">No hidden fees.</span></h2>
-      <p class="section-subtitle" style="margin:0 auto 40px">Start free. Upgrade when you're ready. Cancel anytime.</p>
+      <h2 class="section-title">Simple pricing.<br /><span class="gradient-text">No surprises.</span></h2>
+      <p class="section-subtitle" style="margin:0 auto 40px">Try everything free for 14 days. No credit card required. Cancel anytime.</p>
     </div>
 
     <div class="pricing-toggle">
@@ -1593,22 +1593,22 @@
     </div>
 
     <div class="pricing-grid">
-      <!-- Free -->
+      <!-- 14-Day Trial -->
       <div class="pricing-card reveal">
-        <div class="pricing-plan">Free</div>
-        <div class="pricing-price"><sup>$</sup>0<sub>/mo</sub></div>
-        <p class="pricing-desc">Perfect for trying FlashDeck and light revision.</p>
+        <div class="pricing-plan">14-Day Free Trial</div>
+        <div class="pricing-price"><sup></sup>Free<sub style="font-size:0.85rem">&nbsp;for 14 days</sub></div>
+        <p class="pricing-desc">Full Premium access. No credit card required.</p>
         <ul class="pricing-features">
-          <li><span class="check">✓</span> 100 AI-generated cards per month</li>
+          <li><span class="check">✓</span> <strong>Unlimited</strong> AI-generated cards</li>
           <li><span class="check">✓</span> All 4 exam boards</li>
-          <li><span class="check">✓</span> GCSE, IGCSE & A Level</li>
+          <li><span class="check">✓</span> GCSE, IGCSE &amp; A Level</li>
           <li><span class="check">✓</span> SVG diagrams included</li>
-          <li><span class="check">✓</span> Basic spaced repetition</li>
-          <li><span class="cross">✗</span> <span style="color:var(--text-muted)">Progress analytics</span></li>
-          <li><span class="cross">✗</span> <span style="color:var(--text-muted)">Deck export (PDF)</span></li>
-          <li><span class="cross">✗</span> <span style="color:var(--text-muted)">Priority AI generation</span></li>
+          <li><span class="check">✓</span> Advanced spaced repetition</li>
+          <li><span class="check">✓</span> Full progress analytics</li>
+          <li><span class="check">✓</span> Grade prediction</li>
+          <li><span class="check">✓</span> Deck export (PDF)</li>
         </ul>
-        <a href="signup.html" class="btn-secondary pricing-cta" style="display:flex;justify-content:center">Get Started Free</a>
+        <a href="signup.html" class="btn-secondary pricing-cta" style="display:flex;justify-content:center">Start Free Trial →</a>
       </div>
 
       <!-- Premium -->
@@ -1624,6 +1624,7 @@
           <li><span class="check">✓</span> SVG diagrams included</li>
           <li><span class="check">✓</span> Advanced spaced repetition</li>
           <li><span class="check">✓</span> Full progress analytics</li>
+          <li><span class="check">✓</span> <strong>Grade prediction</strong></li>
           <li><span class="check">✓</span> Deck export (PDF)</li>
           <li><span class="check">✓</span> Priority AI generation</li>
         </ul>
@@ -1649,9 +1650,8 @@
       </div>
     </div>
 
-    <p class="pricing-note">
-          All prices in USD. Local currency billing available in selected regions. 
-      <a href="#">Geo-pricing available</a> for students in qualifying low-income countries. No credit card required for free tier.
+    <p class="pricing-note" id="pricingNote">
+      Prices shown in <span id="currencyLabel">USD</span>. No credit card required for your free trial. Cancel anytime.
     </p>
   </div>
 </section>
@@ -2263,19 +2263,50 @@
 
   // ---- Billing Toggle ----
   let isAnnual = false;
+  // ---- Geo-based currency detection ----
+  var isGBP = false;
+  (function detectCurrency() {
+    fetch('https://ipapi.co/json/')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data.country_code === 'GB') {
+          isGBP = true;
+          applyPricing();
+        }
+      })
+      .catch(function() { /* default to USD on error */ });
+  })();
+
+  function applyPricing() {
+    var priceEl = document.getElementById('premiumPrice');
+    var descEl = document.getElementById('premiumDesc');
+    var labelEl = document.getElementById('currencyLabel');
+    if (isGBP) {
+      if (labelEl) labelEl.textContent = 'GBP (\u00a3)';
+      if (isAnnual) {
+        priceEl.innerHTML = '<sup>\u00a3</sup>5.60<sub>/mo</sub>';
+        descEl.textContent = 'Billed \u00a367.20/year. Save 20% vs monthly.';
+      } else {
+        priceEl.innerHTML = '<sup>\u00a3</sup>7<sub>/mo</sub>';
+        descEl.textContent = 'Unlimited cards. Everything you need to ace your exams.';
+      }
+    } else {
+      if (labelEl) labelEl.textContent = 'USD ($)';
+      if (isAnnual) {
+        priceEl.innerHTML = '<sup>$</sup>5.60<sub>/mo</sub>';
+        descEl.textContent = 'Billed $67.20/year. Save 20% vs monthly.';
+      } else {
+        priceEl.innerHTML = '<sup>$</sup>7<sub>/mo</sub>';
+        descEl.textContent = 'Unlimited cards. Everything you need to ace your exams.';
+      }
+    }
+  }
+
   function toggleBilling() {
     isAnnual = !isAnnual;
-    const toggle = document.getElementById('billingToggle');
+    var toggle = document.getElementById('billingToggle');
     toggle.classList.toggle('on', isAnnual);
-    const priceEl = document.getElementById('premiumPrice');
-    const descEl = document.getElementById('premiumDesc');
-    if (isAnnual) {
-      priceEl.innerHTML = '<sup>$</sup>5.60<sub>/mo</sub>';
-      descEl.textContent = 'Billed $67.20/year. Save 20% vs monthly.';
-    } else {
-      priceEl.innerHTML = '<sup>$</sup>7<sub>/mo</sub>';
-      descEl.textContent = 'Unlimited cards. Everything you need to ace your exams.';
-    }
+    applyPricing();
   }
 
   // ---- FAQ Toggle ----
