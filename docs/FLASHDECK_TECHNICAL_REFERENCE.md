@@ -1,7 +1,7 @@
 # FlashDeck.AI — Technical & Business Logic Reference
 
 > **Document status:** Living document — updated as each module is designed and built  
-> **Version:** 1.0 — 13 May 2026  
+> **Version:** 1.1 — 29 May 2026  
 > **Author:** Zulfi (Cutlass Group) with Manus AI  
 > **Audience:** Development team, technical stakeholders, Cutlass Group  
 > **Repository:** github.com/FlashdeckAI/flashdeck-ai
@@ -40,7 +40,7 @@ FlashDeck.AI is an AI-powered flashcard revision platform targeting GCSE, IGCSE,
 | Payments | Stripe | Individual, family, and school subscriptions |
 | Hosting | Vercel | Static site deployment, auto-deploy from GitHub |
 | Forms | Formspree | School enquiry and general contact forms |
-| Email (transactional) | Resend or SendGrid | Verification emails, invite links, reminders |
+| Email (transactional) | Resend (domain: flashdeck.ai — verified 15 May 2026) | Verification emails, invite links, reminders |
 | Repository | GitHub (FlashdeckAI/flashdeck-ai) | Version control, documentation |
 
 ### Design Principles
@@ -72,7 +72,8 @@ FlashDeck has six distinct user types. Each has a different registration path, a
 
 | Action | Student | Child | Parent | Teacher | School Admin | Super Admin |
 |---|---|---|---|---|---|---|
-| Generate flashcards | ✅ (free limit) | ✅ (parent plan) | ✅ | ✅ | ✅ | ✅ |
+| Generate flashcards | ✅ (trial/premium) | ✅ (parent plan) | ✅ | ✅ | ✅ | ✅ |
+| View grade prediction | ✅ (trial/premium) | ✅ (parent plan) | ✅ | ✅ | ✅ | ✅ |
 | Study own decks | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | View own progress | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | View child's progress | ✗ | ✗ | ✅ | ✗ | ✗ | ✅ |
@@ -127,7 +128,7 @@ The student registration form collects the following fields:
 | Terms & Privacy | Checkbox | Required | Links to /terms.html and /privacy.html |
 | Age confirmation | Checkbox | Required | "I confirm I am 13 years of age or older" |
 
-On successful submission: account created in Supabase, verification email sent, user shown "Check your inbox" screen. Account role set to `student`, subscription tier set to `free`.
+On successful submission: account created in Supabase, verification email sent via Resend, user shown "Check your inbox" screen. Account role set to `student`, subscription tier set to `trial` with a 14-day expiry timestamp stored in `users.trial_expires_at`.
 
 **Post-verification routing:** Student lands on `/dashboard.html`.
 
@@ -194,6 +195,7 @@ The login page (`login.html`) handles all user types with a single form. Supabas
 **Error states:**
 - Invalid credentials: *"The email or password you entered is incorrect."* (deliberately vague — do not confirm whether the email exists)
 - Unverified email: *"Please verify your email address. [Resend verification email]"*
+- Trial expired: *"Your free trial has ended. [Upgrade to Premium]"*
 - Account locked (future): *"Your account has been temporarily locked. Please contact support."*
 
 ### 3.6 Forgot Password Flow
@@ -204,7 +206,7 @@ The login page (`login.html`) handles all user types with a single form. Supabas
 2. If the email exists in Supabase, a password reset link is sent (Supabase handles this)
 3. The page always shows the same confirmation message regardless of whether the email exists: *"If an account exists for that address, you'll receive a reset link within a few minutes."* (prevents email enumeration)
 4. Reset link expires after **1 hour**
-5. User clicks link → lands on `/reset-password.html`
+5. User clicks link → `index.html` detects `type=recovery` in the URL hash → immediately redirects to `/reset-password.html` with the full token intact
 
 **Page:** `/reset-password.html`
 
@@ -252,9 +254,8 @@ A child sub-account has an identical study experience to an individual student a
 
 For students who registered individually (not under a parent account), the upgrade path works as follows:
 
-1. Student hits the free tier limit (100 cards/month) or attempts a Premium-gated feature
-2. Upgrade prompt shown: *"Upgrade to Premium — Unlimited cards, PDF export, priority support"*
-3. Student clicks "Upgrade" → sees two options:
+1. Student sees trial expiry prompt: *"Your free trial has ended — upgrade to keep your progress and continue revising."*
+2. Student clicks "Upgrade" → sees two options:
    - **Pay myself** (for students aged 18+ or with their own payment method)
    - **Ask a parent to pay** → student enters parent's email address → parent receives a payment link email → parent clicks link → Stripe Checkout → on payment, student's account upgrades automatically
 4. The "Ask a parent" email contains a clear explanation of what they're paying for and a link to the Privacy Policy
@@ -509,31 +510,69 @@ A card is considered "mastered" when it has been rated Easy on two consecutive r
 
 ---
 
-## 10. Monetisation & Subscription Logic
+## 10. Grade Prediction Engine
 
-### 10.1 Subscription Tiers
+Grade prediction is a core differentiating feature of FlashDeck.AI, available to all users during the 14-day trial and to all Premium subscribers. It is locked for expired trial accounts as a conversion lever.
 
-| Tier | Price | Card limit | Features |
+### 10.1 How the Prediction Works
+
+The grade prediction uses a weighted mastery model tied directly to the official exam board topic weightings. This makes the prediction genuinely credible — it reflects how the actual exam paper is marked, not just a raw average of flashcard performance.
+
+**Formula:**
+
+> **Predicted Score = Σ (Topic Mastery % × Topic Exam Weighting %)**
+
+The resulting score is mapped to the grade boundary table for the relevant exam board, subject, and level. Grade boundaries are stored in Supabase and updated annually after each exam series.
+
+### 10.2 Prediction Display
+
+The predicted grade is displayed as a **range** (e.g., "Grade 5–6") rather than a single number to manage expectations. As the student completes more study sessions, the confidence interval narrows. The prediction is recalculated after every study session and displayed on the student dashboard home (headline metric with trend arrow), the Progress page (Grade Trajectory chart, Focus Areas, AI Recommendation), the parent dashboard (per-child card), and the teacher dashboard (per-student, read-only).
+
+### 10.3 Grade Trajectory Chart
+
+The Grade Trajectory chart on the Progress page shows the student's predicted grade trajectory over the last 6 weeks (blue line) against their target grade (green line). The target grade is set by the student in Settings, defaulting to one grade above the current prediction.
+
+### 10.4 AI Recommendation
+
+After each study session, the system generates a short recommendation based on the student's weakest topics (lowest mastery × highest exam weighting). For example: *"Focus on Infection & Response this week. Your mastery has dropped 12% in the last 3 sessions and this topic carries 15% of the paper."* A "Start Targeted Session" button pre-loads a study session for that topic. This button is locked for expired trial accounts.
+
+---
+
+## 11. Monetisation & Subscription Logic
+
+### 11.1 Subscription Tiers
+
+FlashDeck operates a **14-day free trial** model, replacing the previous free tier. There is no permanently free plan. After the trial expires, users must upgrade to continue studying.
+
+**Currency display:** UK visitors (detected via IP geolocation using ipapi.co) see GBP prices. All other visitors see USD prices. The pricing page updates dynamically on page load.
+
+**Pricing page heading:** *"Simple pricing. No surprises."*
+
+| Tier | Price (UK) | Price (Global) | Features |
 |---|---|---|---|
-| **Free** | £0/month | 100 cards/month | All 4 exam boards, all subjects, spaced repetition |
-| **Individual Premium** | £7/month or £70/year | Unlimited | + PDF export, priority support, exam-date scheduling |
-| **Family (2 children)** | £10/month or £100/year | Unlimited per child | All Premium features for 2 children + parent dashboard |
-| **Family (3 children)** | £13/month or £130/year | Unlimited per child | All Premium features for 3 children + parent dashboard |
-| **Family (4 children)** | £16/month or £160/year | Unlimited per child | All Premium features for 4 children + parent dashboard |
-| **School Starter** | £499/year | Unlimited | Up to 100 students, teacher dashboard, shared decks |
-| **School Growth** | £999/year | Unlimited | Up to 300 students, multi-teacher, student reports |
-| **School Whole School** | £1,999/year | Unlimited | Unlimited students, full analytics, DPA included |
+| **14-Day Free Trial** | Free | Free | Full Premium access for 14 days. No credit card required. |
+| **Individual Premium** | £7/month or £70/year | $7/month or $67/year | Unlimited cards, grade prediction, PDF export, priority AI generation |
+| **Family — 2 children** | £10/month | $10/month | All Premium features for 2 children + parent dashboard |
+| **Family — 3 children** | £13/month | $13/month | All Premium features for 3 children + parent dashboard |
+| **Family — 4 children** | £16/month | $16/month | All Premium features for 4 children + parent dashboard |
+| **School Starter** | £499/year | $599/year | Up to 100 students, teacher dashboard, shared decks |
+| **School Growth** | £999/year | $1,199/year | Up to 300 students, multi-teacher, student reports |
+| **School Whole School** | £1,999/year | $2,399/year | Unlimited students, full analytics, DPA included |
 
-### 10.2 Stripe Integration
+### 11.2 Trial Model
 
+- Trial duration: 14 days from email verification
+- No credit card required
+- Full Premium access during trial (all features including grade prediction and PDF export)
+- Trial expiry timestamp stored in `users.trial_expires_at`
+- On expiry: account enters read-only mode — student can view existing decks and progress but cannot generate new cards or start new study sessions
+- Grade prediction remains visible after expiry (as a conversion lever) but the "Start Targeted Session" button is locked
+
+### 11.3 Stripe Integration
 - Individual and family subscriptions use **Stripe Subscriptions** with monthly or annual billing
 - School licences use **Stripe Invoicing** (invoice sent, paid by bank transfer or card)
 - The "Ask a parent to pay" flow uses a **Stripe Payment Link** generated on demand
-- Stripe webhooks update subscription status in Supabase in real time
-
-### 10.3 Free Tier Enforcement
-
-The monthly card count is stored in Supabase (`users.cards_generated_this_month`). It resets to 0 on the 1st of each month via a Supabase scheduled function. Before any generation request, the API checks this value against the tier limit. Premium users bypass this check entirely.
+- Stripe webhooks update subscription status in Supabase in real timerely.
 
 ---
 
@@ -609,14 +648,30 @@ This section records decisions that have been made and questions that remain ope
 | 6 | Nigeria — supported market? | ✅ Decided | Yes — Cambridge IGCSE & A Level only (no WAEC) |
 | 7 | Matric (Pakistan) — supported? | ✅ Decided | No — Cambridge IGCSE & A Level only for Pakistan |
 | 8 | WJEC — supported exam board? | ✅ Decided | No — not in V1 |
-| 9 | School licence payment method | ⬜ Open | Invoice + bank transfer, or Stripe Invoicing? |
-| 10 | Transactional email provider | ⬜ Open | Resend vs SendGrid — to be decided before auth build |
+| 9 | School licence payment method | ✅ Decided | Stripe Invoicing (invoice + bank transfer or card) |
+| 10 | Transactional email provider | ✅ Decided | Resend — domain flashdeck.ai verified 15 May 2026 |
+| 11 (new) | Free tier vs. trial model | ✅ Decided | 14-day full-access trial replaces free tier. No credit card required. After expiry, account enters read-only mode. |
+| 12 (new) | Currency display | ✅ Decided | GBP for UK visitors (IP geolocation via ipapi.co), USD for all others. Detected client-side on page load. |
+| 13 (new) | Grade prediction — scope | ✅ Decided | Core feature, available during trial and to all Premium subscribers. Locked after trial expiry as conversion lever. |
+| 14 (new) | Pricing page heading | ✅ Decided | Changed from "Simple, honest pricing" to "Simple pricing. No surprises." |
+| 20 (new) | Parent dashboard — V1 scope? | ⬜ Open | To be confirmed by Zulfi |
 | 11 | Age gate for under-13 (parental consent flow) | ⬜ Open | How to handle if a child enters age < 13 at sign-up? |
 | 12 | Google OAuth for child sub-accounts | ⬜ Open | Should children be able to use Google sign-in, or email/password only? |
 | 13 | Exam date field — required or optional? | ⬜ Open | If required, what happens for students who don't know their date yet? |
-| 14 | Family package — launch with MVP or post-MVP? | ⬜ Open | Recommend post-MVP to reduce initial complexity |
+| 14 | Family package — launch with MVP or post-MVP? | ✅ Decided | Post-MVP — keeps initial build focused; Individual Premium only at launch |
 | 15 | PDF export format | ⬜ Open | A4 portrait, 2 cards per page? Or full-page card per page? |
 
 ---
 
-*This document is maintained in the FlashDeck GitHub repository at `/docs/FLASHDECK_TECHNICAL_REFERENCE.md`. All significant design decisions should be recorded in Section 13 before implementation begins.*
+---
+
+## 16. Change Log
+
+| Version | Date | Author | Changes |
+|---|---|---|---|
+| 1.0 | 13 May 2026 | Zulfi / Manus AI | Initial document |
+| 1.1 | 29 May 2026 | Zulfi / Manus AI | Replaced free tier with 14-day full-access trial (Section 11). Added geo-based currency detection GBP/USD (Section 11.1). Added Grade Prediction Engine as new Section 10 (sections 10–13 renumbered). Updated permission matrix to include grade prediction row. Updated trial expiry login error state. Updated password reset redirect flow. Resolved open questions 9, 10. Added new decisions 11–14. Added open question 20 (parent dashboard V1 scope). |
+
+---
+
+*This document is maintained in the FlashDeck GitHub repository at `/docs/FLASHDECK_TECHNICAL_REFERENCE.md`. All significant design decisions should be recorded in Section 15 before implementation begins.*
